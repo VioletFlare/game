@@ -44,7 +44,7 @@ class Utils {
             let dimension = calculateDimension(object);
     
             let wall = invisibleWalls.create(...position).setOrigin(0, 0);
-            invisible ? wall.setSize(...dimension) : wall.setDisplaySize(...dimension);
+            wall.setDisplaySize(...dimension);
     
             wall.refreshBody();
         }

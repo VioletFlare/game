@@ -24,7 +24,7 @@ class Temple0 extends Phaser.Scene {
 
     setupPhysics() {
         let collisionLayer = Utils.findObjectLayerByName(this.map, 'collision');
-        let invisibleWalls = Utils.createInvisibleWalls(this, collisionLayer, false);
+        let invisibleWalls = Utils.createInvisibleWalls(this, collisionLayer);
         this.physics.world.setBounds(0, 0, 42*32, 32*32);
         this.physics.add.collider(this.player, invisibleWalls);
     }
