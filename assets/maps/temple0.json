@@ -37,11 +37,11 @@
                  "polyline":[
                         {
                          "x":16,
-                         "y":-2
+                         "y":0
                         }, 
                         {
                          "x":846.667,
-                         "y":-0.666667
+                         "y":0
                         }],
                  "rotation":0,
                  "type":"",
@@ -96,8 +96,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":205,
-                 "y":683
+                 "x":192,
+                 "y":640
                 }],
          "opacity":1,
          "type":"objectgroup",
