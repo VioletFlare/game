@@ -1,51 +1,37 @@
-import dummy from '../assets/images/dummy37x45.png';
+import tex_png from '../assets/girl/dbbin/girl_tex.png';
+import tex_json from '../assets/girl/dbbin/girl_tex.json';
+import ske_dbbin from '../assets/girl/dbbin/girl_ske.dbbin';
 
 class Player {
 
     preload(context) {
-        context.load.spritesheet('dummy', dummy, { frameWidth: 37, frameHeight: 45 });
+
     }
 
     create(context, x, y) {
-        context.player = context.physics.add.sprite(x, y, 'dummy');
-        context.player.setBounce(0.2);
-        context.player.setCollideWorldBounds(true);
+        context.load.dragonbone(
+            "girl",
+            tex_png,
+            tex_json,
+            ske_dbbin,
+            null,
+            null,
+            { responseType: "arraybuffer" }
+        );
 
-        context.anims.create({
-            key: 'left',
-            frames: context.anims.generateFrameNumbers('dummy', { start: 0, end: 17 }),
-            frameRate: 10,
-            repeat: -1
-        });
-    
-        context.anims.create({
-            key: 'idle',
-            frames: [{key: 'dummy', frame: 4}]
-        })
-    
-        context.anims.create({
-            key: 'right',
-            frames: context.anims.generateFrameNumbers('dummy', { start: 0, end: 17 }),
-            frameRate: 10,
-            repeat: -1
-        });
+        console.log(tex_png, tex_json, ske_dbbin);
+        
+        const armatureDisplay = context.add.armature("player", "girl");
+        console.log(armatureDisplay);
+
+        armatureDisplay.x = context.cameras.main.centerX;           // set position
+        armatureDisplay.y = context.cameras.main.centerY + 200;
+        //context.player.setBounce(0.2);
+        //context.player.setCollideWorldBounds(true);
     }
 
     update(context) {
-        if (context.cursors.left.isDown) {
-            context.player.setVelocityX(-160);
-            context.player.anims.play('left', true);
-        } else if (context.cursors.right.isDown) {
-            context.player.setVelocityX(160);
-            context.player.anims.play('right', true);
-        } else {
-            context.player.setVelocityX(0);
-            context.player.anims.play('idle', true);
-        }
 
-        if (context.cursors.up.isDown) {
-            context.player.setVelocityY(-330);
-        }
     }
 
 

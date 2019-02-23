@@ -106,7 +106,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":5,
+ "nextobjectid":35,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2018.09.12",
@@ -115,7 +115,7 @@
         {
          "columns":8,
          "firstgid":1,
-         "image":"../images/dark_tiles.png",
+         "image":"..\/images\/dark_tiles.png",
          "imageheight":199,
          "imagewidth":265,
          "margin":1,

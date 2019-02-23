@@ -9,7 +9,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
-            title: 'Output Management'
+            template: './src/template.html'
         }),
         new webpack.DefinePlugin({
             'CANVAS_RENDERER': JSON.stringify(true),
@@ -19,7 +19,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(png|svg|jpg|gif)$/,
+                test: /\.(png|svg|jpg|gif|dbbin)$/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -28,7 +28,19 @@ module.exports = {
                         }
                     }
                 ]
-            }
+            },
+            {
+                type: 'javascript/auto',
+                test: /(_tex\.json|dragonBones.js|phaser.js|_ske.json)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: "[path][name].[ext]"
+                        }
+                    }
+                ]
+            },
         ]
     }
 };

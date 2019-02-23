@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 import Temple0 from './Temple0.js';
 
 class Boot {
@@ -10,7 +9,7 @@ class Boot {
     initConfig() {
 
         this.config = {
-            type: Phaser.AUTO,
+            type: Phaser.WEBGL,
             width: 1400,
             height: 800,
             physics: {

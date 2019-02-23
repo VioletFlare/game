@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='./lib/phaser.js'></script>
+    <script src='./lib/dragonBones.js'></script>
+</head>
+
+<body>
+    <script>
+
+        function preload() {
+            this.plugins.installScenePlugin('dragonBones', dragonBones.phaser.plugin.DragonBonesScenePlugin, 'dragonbone', this);
+        }
+
+        function create() {
+
+            this.load.dragonbone(
+                "mecha_1002_101d_show",
+                "assets/mecha/mecha_1002_101d_show_tex.png",
+                "assets/mecha/mecha_1002_101d_show_tex.json",
+                "assets/mecha/mecha_1002_101d_show_ske.dbbin",
+                null,
+                null,
+                { responseType: "arraybuffer" }
+            );
+
+            const armatureDisplay = this.add.armature("mecha_1002_101d", "mecha_1002_101d_show");
+            armatureDisplay.animation.play("idle");
+
+            armatureDisplay.x = this.cameras.main.centerX;
+            armatureDisplay.y = this.cameras.main.centerY + 200;
+        }
+
+        const sceneConfig = {
+            preload: preload,
+            create: create
+        }
+
+        const gameConfig = {
+            scene: sceneConfig   // first scene to show
+        };
+
+
+        new Phaser.Game(gameConfig);
+
+    </script>
+</body>
+
+</html>

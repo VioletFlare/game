@@ -3,6 +3,7 @@ import dark_tiles from '../assets/images/dark_tiles.png';
 import temple0 from '../assets/maps/temple0.json';
 import Player from './Player.js';
 
+
 class Temple0 extends Phaser.Scene {
     
     constructor() {
@@ -10,6 +11,7 @@ class Temple0 extends Phaser.Scene {
     }
 
     preload() {
+        this.load.scenePlugin('DragonBonesScenePlugin', dragonBones.phaser.plugin.DragonBonesScenePlugin, 'dragonBones', 'dragonbone');
         Player.preload(this);
         this.load.image('dark_tiles', dark_tiles);
         this.load.tilemapTiledJSON('temple0', temple0);
@@ -30,9 +32,9 @@ class Temple0 extends Phaser.Scene {
     }
 
     setupCamera() {
-        this.cameras.main.setBounds(0, 0, 42*32, 32*32);
-        this.cameras.main.zoom = 2;
-        this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
+        //this.cameras.main.setBounds(0, 0, 42*32, 32*32);
+        //this.cameras.main.zoom = 2;
+        //this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
     }
 
     create() {
@@ -40,16 +42,15 @@ class Temple0 extends Phaser.Scene {
         this.setupMap();
         let playerLayer = Utils.findObjectLayerByName(this.map, 'player');
         let playerSpawn = Utils.findObjectsByName(playerLayer, 'player_spawn');
-
         Player.create(this, playerSpawn[0].x, playerSpawn[0].y);
         this.setupPhysics();
         this.setupCamera();
     }
 
     update() {
-        Player.update(this);
+        //Player.update(this);
     }
 
 }
 
-export default new Temple0();
+export default Temple0;
