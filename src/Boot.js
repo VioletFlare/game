@@ -9,13 +9,14 @@ class Boot {
     initConfig() {
 
         this.config = {
-            type: Phaser.WEBGL,
+            type: Phaser.AUTO,
             width: 1400,
             height: 800,
             physics: {
                 default: 'arcade',
                 arcade: {
-                    gravity: { y: 200 }
+                    gravity: { y: 200 },
+                    debug: true
                 }
             },
             scene: Temple0

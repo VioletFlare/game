@@ -1,37 +1,65 @@
-import tex_png from '../assets/girl/dbbin/girl_tex.png';
-import tex_json from '../assets/girl/dbbin/girl_tex.json';
-import ske_dbbin from '../assets/girl/dbbin/girl_ske.dbbin';
+import texPng from "../assets/girl/girl_tex.png";
+import texJson from "../assets/girl/girl_tex.json";
+import skeDbbin from "../assets/girl/girl_ske.dbbin";
 
 class Player {
 
     preload(context) {
-
-    }
-
-    create(context, x, y) {
         context.load.dragonbone(
             "girl",
-            tex_png,
-            tex_json,
-            ske_dbbin,
+            texPng,
+            texJson,
+            skeDbbin,
             null,
             null,
             { responseType: "arraybuffer" }
         );
 
-        console.log(tex_png, tex_json, ske_dbbin);
-        
-        const armatureDisplay = context.add.armature("player", "girl");
-        console.log(armatureDisplay);
-
-        armatureDisplay.x = context.cameras.main.centerX;           // set position
-        armatureDisplay.y = context.cameras.main.centerY + 200;
-        //context.player.setBounce(0.2);
-        //context.player.setCollideWorldBounds(true);
+        this.cursors = context.input.keyboard.createCursorKeys();
     }
 
-    update(context) {
+    _configureGameObject(gameObject, height, width) {
 
+        gameObject.body.height = height;
+        gameObject.body.width = width;
+
+        gameObject.body.offset.set(
+            -gameObject.body.halfWidth, 
+            -gameObject.body.height
+        );
+    }
+
+    _setGameObjectSpawn(gameObject, spawnPoint) {
+        gameObject.x = spawnPoint[0].x;
+        gameObject.y = spawnPoint[0].y;
+    }
+
+    create(context, playerSpawn) {
+        const armatureDisplay = context.add.armature("girl", "girl");
+        armatureDisplay.animation.play("idle_animation_0");
+        this.player = context.physics.add.existing(armatureDisplay);
+
+        this._configureGameObject(this.player, 148, 64);
+        this._setGameObjectSpawn(this.player, playerSpawn);
+
+        return this.player;
+    }
+
+    update() {
+        this.player.body.setVelocity(0);
+        
+        if (this.cursors.left.isDown)  {
+            this.player.body.setVelocityX(-300);
+        } else if (this.cursors.right.isDown) {
+            this.player.body.setVelocityX(300);
+        }
+    
+        if (this.cursors.up.isDown) {
+            this.player.body.setVelocityY(-300);
+        } else if (this.cursors.down.isDown) {
+            this.player.body.setVelocityY(300);
+        }
+        
     }
 
 
