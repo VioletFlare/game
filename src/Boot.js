@@ -15,7 +15,7 @@ class Boot {
             physics: {
                 default: 'arcade',
                 arcade: {
-                    gravity: { y: 200 },
+                    gravity: { y: 300 },
                     debug: true
                 }
             },

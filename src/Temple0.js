@@ -1,6 +1,7 @@
 import Utils from './Utils.js';
 import dark_tiles from '../assets/images/dark_tiles.png';
 import temple0 from '../assets/maps/temple0.json';
+import InvisibleWalls from './InvisibleWalls.js';
 import Player from './Player.js';
 
 class Temple0 extends Phaser.Scene {
@@ -25,7 +26,7 @@ class Temple0 extends Phaser.Scene {
 
     setupPhysics() {
         let collisionLayer = Utils.findObjectLayerByName(this.map, 'collision');
-        let invisibleWalls = Utils.createInvisibleWalls(this, collisionLayer);
+        let invisibleWalls = InvisibleWalls.create(this, collisionLayer);
         this.physics.world.setBounds(0, 0, 42*32, 32*32);
         this.physics.add.collider(this.player, invisibleWalls);
     }
@@ -41,7 +42,7 @@ class Temple0 extends Phaser.Scene {
         this.setupMap();
         let playerLayer = Utils.findObjectLayerByName(this.map, 'player');
         let playerSpawn = Utils.findObjectsByName(playerLayer, 'player_spawn');
-        this.player = Player.create(this, playerSpawn);
+        this.player = Player.create(playerSpawn);
 
         this.setupPhysics();
         this.setupCamera();
