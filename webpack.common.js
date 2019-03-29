@@ -31,7 +31,7 @@ module.exports = {
             },
             {
                 type: 'javascript/auto',
-                test: /(_tex\.json|dragonBones.js|phaser.js|_ske.json)$/,
+                test: /(_ske\.json|_tex\.json|dragonBones.js|phaser.js)$/,
                 use: [
                     {
                         loader: 'file-loader',
