@@ -34,21 +34,20 @@ class Player extends GameObject {
         return this.player;
     }
 
-    _runRight() {
-        this.player.body.setVelocityX(160);
-        this.player.armature.flipX = false;
-    }
+    _run(velocity, flipX) {
+        this.player.body.setVelocityX(velocity)
+        this.player.armature.flipX = flipX;
 
-    _runLeft(){
-        this.player.body.setVelocityX(-160)
-        this.player.armature.flipX = true;
+        if (this.player.animation.lastAnimationName !== "run_0") {
+            this.player.armature.animation.play("run_0");
+        }
     }
 
     _idle() {
         this.player.body.setVelocityX(0);
 
-        if (!this.player.animation.isPlaying) {
-            this.player.armature.animation.play("idle_animation_0");
+        if (this.player.animation.lastAnimationName !== "idle_0") {
+            this.player.armature.animation.play("idle_0");
         }
     }
 
@@ -59,10 +58,10 @@ class Player extends GameObject {
     update() {
 
         if (this.cursors.right.isDown) {
-            this._runRight()
+            this._run(160, false)
         }
         else if (this.cursors.left.isDown) {
-            this._runLeft();
+            this._run(-160, true);
         }
         else if (!this.player.body.isMoving && this.player.body.touching.down) {
             this._idle();
