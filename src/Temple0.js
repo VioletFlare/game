@@ -1,8 +1,9 @@
-import Utils from './Utils.js';
+import Utils from './Utils';
 import dark_tiles from '../assets/images/dark_tiles.png';
-import temple0 from '../assets/maps/temple0.json';
-import InvisibleWalls from './InvisibleWalls.js';
-import Player from './Player.js';
+import temple0 from '../assets/maps/temple0';
+import InvisibleWalls from './InvisibleWalls';
+import Player from './Player';
+import Npc from './Npc';
 
 class Temple0 extends Phaser.Scene {
     
@@ -12,7 +13,10 @@ class Temple0 extends Phaser.Scene {
 
     preload() {
         this.plugins.installScenePlugin('dragonBones', dragonBones.phaser.plugin.DragonBonesScenePlugin, 'dragonbone', this);
+
         Player.preload(this);
+        Npc.preload(this);
+
         this.load.image('dark_tiles', dark_tiles);
         this.load.tilemapTiledJSON('temple0', temple0);
     }
@@ -29,6 +33,7 @@ class Temple0 extends Phaser.Scene {
         let invisibleWalls = InvisibleWalls.create(this, collisionLayer);
         this.physics.world.setBounds(0, 0, 42*32, 32*32);
         this.physics.add.collider(this.player, invisibleWalls);
+        this.physics.add.collider(this.npc, invisibleWalls);
     }
 
     setupCamera() {
@@ -43,6 +48,10 @@ class Temple0 extends Phaser.Scene {
         let playerLayer = Utils.findObjectLayerByName(this.map, 'player');
         let playerSpawn = Utils.findObjectsByName(playerLayer, 'player_spawn');
         this.player = Player.create(playerSpawn);
+        playerSpawn[0].x += 150;
+
+        this.npc = Npc.create(playerSpawn);
+        
 
         this.setupPhysics();
         this.setupCamera();
@@ -50,6 +59,7 @@ class Temple0 extends Phaser.Scene {
 
     update() {
         Player.update(this);
+        Npc.update();
     }
 
 }

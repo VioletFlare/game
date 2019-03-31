@@ -1,4 +1,4 @@
-import Boot from './Boot.js';
+import Boot from './Boot';
 import '../lib/phaser';
 import '../lib/dragonBones';
 

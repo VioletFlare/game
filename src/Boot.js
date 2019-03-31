@@ -1,4 +1,4 @@
-import Temple0 from './Temple0.js';
+import Temple0 from './Temple0';
 
 class Boot {
 
@@ -10,8 +10,8 @@ class Boot {
 
         this.config = {
             type: Phaser.AUTO,
-            width: window.visualViewport.width,
-            height: window.visualViewport.height,
+            width: 1600,
+            height: 900,
             physics: {
                 default: 'arcade',
                 arcade: {
