@@ -21,9 +21,8 @@ class Player extends GameObject {
 
     create(playerSpawn) {
         const config = {
-            height: 148,
-            width: 64,
-            spawn: playerSpawn
+            spawn: playerSpawn,
+            scale: 0.45
         }
 
         this.player = super.create(config);
@@ -59,11 +58,9 @@ class Player extends GameObject {
 
         if (this.cursors.right.isDown) {
             this._run(160, false)
-        }
-        else if (this.cursors.left.isDown) {
+        } else if (this.cursors.left.isDown) {
             this._run(-160, true);
-        }
-        else if (!this.player.body.isMoving && this.player.body.touching.down) {
+        } else if (!this.player.body.isMoving && this.player.body.touching.down) {
             this._idle();
         }
     

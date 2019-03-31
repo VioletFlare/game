@@ -10,8 +10,8 @@ class Boot {
 
         this.config = {
             type: Phaser.AUTO,
-            width: 1400,
-            height: 800,
+            width: window.visualViewport.width,
+            height: window.visualViewport.height,
             physics: {
                 default: 'arcade',
                 arcade: {

@@ -1,13 +1,22 @@
 class GameObject {
 
-    _setDimensions(gameObject, height, width) {
-        gameObject.body.height = height;
-        gameObject.body.width = width;
+    _createArmature(scale) {
+        const armatureDisplay = this.scene.add.armature(this.armature.name, this.armature.name);
 
-        gameObject.body.offset.set(
-            -gameObject.body.halfWidth, 
-            -gameObject.body.height
-        );
+        armatureDisplay.scaleX = scale;
+        armatureDisplay.scaleY = scale;
+
+        return armatureDisplay;
+    }
+
+    _setDimensions(gameObject) {
+        const width = gameObject.armature.armatureData.canvas.width,
+              height = gameObject.armature.armatureData.canvas.height,
+              offsetX = - width / 2,
+              offsetY = - height;
+  
+        gameObject.body.setSize(width, height);
+        gameObject.body.offset.set(offsetX, offsetY);
     }
 
     _setSpawn(gameObject, spawnPoint) {
@@ -31,10 +40,10 @@ class GameObject {
     }
 
     create(config) {
-        const armatureDisplay = this.scene.add.armature(this.armature.name, this.armature.name),
-            gameObject = this.scene.physics.add.existing(armatureDisplay);
+        const armatureDisplay = this._createArmature(config.scale),
+              gameObject = this.scene.physics.add.existing(armatureDisplay);
 
-        this._setDimensions(gameObject, config.height, config.width);
+        this._setDimensions(gameObject);
         this._setSpawn(gameObject, config.spawn);
 
         return gameObject;
