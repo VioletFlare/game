@@ -6,8 +6,9 @@ import PlayerFactory from '../Player/PlayerFactory';
 import NpcFactory from '../Npc/NpcFactory';
 import Girl from '../Character/Girl';
 import Ghost from '../Character/Ghost';
+import BaseScene from './BaseScene';
 
-class Temple0 extends Phaser.Scene {
+class Temple0 extends BaseScene {
     
     constructor() {
         super();
@@ -52,10 +53,6 @@ class Temple0 extends Phaser.Scene {
         this.player.update();
     }
 
-    _preloadPlugins() {
-        this.plugins.installScenePlugin('dragonBones', dragonBones.phaser.plugin.DragonBonesScenePlugin, 'dragonbone', this);
-    }
-
     _preloadMap() {
         this.load.image('dark_tiles', dark_tiles);
         this.load.tilemapTiledJSON('temple0', temple0);
@@ -83,7 +80,7 @@ class Temple0 extends Phaser.Scene {
     }
 
     preload() {
-        this._preloadPlugins();
+        super.preload();
         this._initCharacters();
         this._preloadCharacters();
         this._preloadMap();
