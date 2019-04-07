@@ -1,10 +1,11 @@
-import Utils from './Utils';
-import dark_tiles from '../assets/images/dark_tiles.png';
-import temple0 from '../assets/maps/temple0';
-import InvisibleWalls from './InvisibleWalls';
-import PlayerFactory from './Player/PlayerFactory';
-import Npc from './Npc';
-import Girl from './Character/Girl';
+import Utils from '../Misc/Utils';
+import dark_tiles from '../../assets/images/dark_tiles.png';
+import temple0 from '../../assets/maps/temple0';
+import InvisibleWalls from '../Physics/InvisibleWalls';
+import PlayerFactory from '../Player/PlayerFactory';
+import NpcFactory from '../Npc/NpcFactory';
+import Girl from '../Character/Girl';
+import Ghost from '../Character/Ghost';
 
 class Temple0 extends Phaser.Scene {
     
@@ -18,15 +19,25 @@ class Temple0 extends Phaser.Scene {
             scene: this,
             runVelocity: 160,
             jumpVelocity: 280,
-            character: Girl
+            obj: Girl
         }
 
         this.player = PlayerFactory.create(config);
+
+        const ghostconf = {
+            scale: 0.32,
+            scene: this,
+            runVelocity: 160,
+            jumpVelocity: 280,
+            obj: Ghost
+        }
+
+        this.ghost = NpcFactory.create(ghostconf);
     }
 
     _preloadCharacters() {
         this.player.preload();
-        Npc.preload(this);
+        this.ghost.preload();
     }
 
     _createCharacters() {
@@ -34,13 +45,11 @@ class Temple0 extends Phaser.Scene {
         let playerSpawn = Utils.findObjectsByName(playerLayer, 'player_spawn');
         this.player.create(playerSpawn);
         playerSpawn[0].x += 150;
-
-        this.npc = Npc.create(playerSpawn);
+        this.ghost.create(playerSpawn);
     }
 
     _updateCharacters() {
         this.player.update();
-        Npc.update();
     }
 
     _preloadPlugins() {
@@ -64,7 +73,7 @@ class Temple0 extends Phaser.Scene {
         let invisibleWalls = InvisibleWalls.create(this, collisionLayer);
         this.physics.world.setBounds(0, 0, 42*32, 32*32);
         this.physics.add.collider(this.player.armatureDisplay, invisibleWalls);
-        this.physics.add.collider(this.npc, invisibleWalls);
+        this.physics.add.collider(this.ghost.armatureDisplay, invisibleWalls);
     }
 
     _createCamera() {

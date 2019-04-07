@@ -7,16 +7,11 @@ class Player extends GameObject {
     }
 
     _run(velocity, flipX) {
-        this.config.character.run(this.armatureDisplay);
-
-        this.armatureDisplay.body.setVelocityX(velocity)
-        this.armatureDisplay.armature.flipX = flipX;
+        this.config.obj.run(this.armatureDisplay, velocity, flipX);
     }
 
     _idle() {
-        this.config.character.idle(this.armatureDisplay);
-
-        this.armatureDisplay.body.setVelocityX(0);
+        this.config.obj.idle(this.armatureDisplay);
     }
 
     _jump() {

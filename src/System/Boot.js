@@ -1,4 +1,4 @@
-import Temple0 from './Temple0';
+import Temple0 from '../Scene/Temple0';
 
 class Boot {
 

@@ -1,5 +1,5 @@
-import Boot from './Boot';
+import Boot from './System/Boot';
 import '../lib/phaser';
 import '../lib/dragonBones';
 
-let game = Boot.start();
+Boot.start();
