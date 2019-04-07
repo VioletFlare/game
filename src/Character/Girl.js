@@ -13,6 +13,18 @@ class Girl {
         }
     }
 
+    idle(armatureDisplay) {
+        if (armatureDisplay.animation.lastAnimationName !== "idle_0") {
+            armatureDisplay.armature.animation.play("idle_0");
+        }
+    }
+
+    run(armatureDisplay) {
+        if (armatureDisplay.animation.lastAnimationName !== "run_0") {
+            armatureDisplay.armature.animation.play("run_0");
+        }
+    }
+
 }
 
 export default new Girl();

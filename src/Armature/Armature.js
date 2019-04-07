@@ -1,4 +1,4 @@
-class ArmatureDisplay {
+class Armature {
 
     constructor(config) {
         this.config = config;
@@ -6,10 +6,10 @@ class ArmatureDisplay {
 
     preload() {
         this.config.scene.load.dragonbone(
-            this.config.armature.name,
-            this.config.armature.texPng,
-            this.config.armature.texJson,
-            this.config.armature.skeDbbin,
+            this.config.character.armature.name,
+            this.config.character.armature.texPng,
+            this.config.character.armature.texJson,
+            this.config.character.armature.skeDbbin,
             null,
             null,
             { responseType: "arraybuffer" }
@@ -22,7 +22,7 @@ class ArmatureDisplay {
     }
 
     create() {
-        this.armatureDisplay = this.config.scene.add.armature(this.config.armature.name, this.config.armature.name);
+        this.armatureDisplay = this.config.scene.add.armature(this.config.character.armature.name, this.config.character.armature.name);
 
         this._scaleArmature();
 
@@ -31,4 +31,4 @@ class ArmatureDisplay {
 
 }
 
-export default ArmatureDisplay;
+export default Armature;

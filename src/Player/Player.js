@@ -7,24 +7,20 @@ class Player extends GameObject {
     }
 
     _run(velocity, flipX) {
+        this.config.character.run(this.armatureDisplay);
+
         this.armatureDisplay.body.setVelocityX(velocity)
         this.armatureDisplay.armature.flipX = flipX;
-
-        if (this.armatureDisplay.animation.lastAnimationName !== "run_0") {
-            this.armatureDisplay.armature.animation.play("run_0");
-        }
     }
 
     _idle() {
-        this.armatureDisplay.body.setVelocityX(0);
+        this.config.character.idle(this.armatureDisplay);
 
-        if (this.armatureDisplay.animation.lastAnimationName !== "idle_0") {
-            this.armatureDisplay.armature.animation.play("idle_0");
-        }
+        this.armatureDisplay.body.setVelocityX(0);
     }
 
     _jump() {
-        this.armatureDisplay.body.setVelocityY(-280);
+        this.armatureDisplay.body.setVelocityY(-this.config.jumpVelocity);
     }
 
     preload() {
@@ -42,9 +38,9 @@ class Player extends GameObject {
     update() {
 
         if (this.cursors.right.isDown) {
-            this._run(160, false)
+            this._run(this.config.runVelocity, false)
         } else if (this.cursors.left.isDown) {
-            this._run(-160, true);
+            this._run(-this.config.runVelocity, true);
         } else if (!this.armatureDisplay.body.isMoving && this.armatureDisplay.body.touching.down) {
             this._idle();
         }

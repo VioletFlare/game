@@ -1,11 +1,11 @@
-import ArmatureDisplay from './ArmatureDisplay';
+import Armature from './Armature';
 
-class ArmatureDisplayFactory {
+class ArmatureFactory {
 
-    create(scene, armature, scale) {
-        return new ArmatureDisplay(scene, armature, scale);
+    create(config) {
+        return new Armature(config);
     }
 
 }
 
-export default new ArmatureDisplayFactory();
+export default new ArmatureFactory();

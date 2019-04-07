@@ -16,7 +16,9 @@ class Temple0 extends Phaser.Scene {
         const config = {
             scale: 0.45,
             scene: this,
-            armature: Girl.armature
+            runVelocity: 160,
+            jumpVelocity: 280,
+            character: Girl
         }
 
         this.player = PlayerFactory.create(config);
