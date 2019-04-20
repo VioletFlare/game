@@ -1,4 +1,5 @@
 import GameObject from "../GameObject/GameObject";
+//import Fireball from '../Ability/Spell/Fireball';
 
 class Player extends GameObject {
 
@@ -21,6 +22,7 @@ class Player extends GameObject {
     preload() {
         super.preload();
         this.cursors = this.config.scene.input.keyboard.createCursorKeys();
+        //Fireball.preload(this.config.scene);
     }
 
     create(playerSpawn) {
@@ -28,6 +30,19 @@ class Player extends GameObject {
 
         this.armatureDisplay.body.setBounce(0, 0.4);
         this.armatureDisplay.body.collideWorldBounds = true;
+
+        //this._createKeyCommands();
+    }
+
+    _useAbility() {
+        //Fireball.cast(this.armatureDisplay, this.config.scene.focusedArmatureDisplay);
+    }
+
+    _createKeyCommands() {
+        var spaceKey = this.config.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        spaceKey.on('down', () => {
+            this._useAbility();
+        });
     }
 
     update() {

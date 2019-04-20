@@ -18,18 +18,16 @@ class Girl extends BaseCharacter {
 
     idle(armatureDisplay) {
         super.idle(armatureDisplay);
+        super.playAnimation(armatureDisplay, "idle_0");
+    }
 
-        if (armatureDisplay.animation.lastAnimationName !== "idle_0") {
-            armatureDisplay.armature.animation.play("idle_0");
-        }
+    cast(armatureDisplay) {
+        super.playAnimation(armatureDisplay, "cast_0");
     }
 
     run(armatureDisplay, velocity, flipX) {
         super.run(armatureDisplay, velocity, flipX);
-
-        if (armatureDisplay.animation.lastAnimationName !== "run_0") {
-            armatureDisplay.armature.animation.play("run_0");
-        }
+        super.playAnimation(armatureDisplay, "run_0");
     }
 
 }

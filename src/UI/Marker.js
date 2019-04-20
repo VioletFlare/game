@@ -24,26 +24,26 @@ class Marker {
     }
 
     _removePreviousMarker() {
-        if (this.scene.currentArmatureDisplay) {
-            const child = this.scene.currentArmatureDisplay.getByName("marker");
-            this.scene.currentArmatureDisplay.remove(child, true);
+        if (this.scene.focusedArmatureDisplay) {
+            const child = this.scene.focusedArmatureDisplay.getByName("marker");
+            this.scene.focusedArmatureDisplay.remove(child, true);
         }
     }
 
     _createNewMarker() {
-        const height = -(this.scene.currentArmatureDisplay.armature.armatureData.canvas.height + 80);
+        const height = -(this.scene.focusedArmatureDisplay.armature.armatureData.canvas.height + 80);
         const gems = this.scene.add.sprite(0, height, 'gems');
 
         gems.setName("marker");
         gems.play('prism');
 
-        this.scene.currentArmatureDisplay.add(gems);
+        this.scene.focusedArmatureDisplay.add(gems);
     }
 
     set(armatureDisplay) {
         this._removePreviousMarker();
 
-        this.scene.currentArmatureDisplay = armatureDisplay;
+        this.scene.focusedArmatureDisplay = armatureDisplay;
 
         this._createNewMarker();
     }

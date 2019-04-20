@@ -1,5 +1,4 @@
 import ArmatureFactory from '../Armature/ArmatureFactory'
-import Marker from '../UI/Marker';
 
 class GameObject {
 
@@ -34,18 +33,13 @@ class GameObject {
     }
 
 
-    _focusObject() {
-        this.marker.set(this.armatureDisplay);
-    }
-
-    _unFocusObject() {
-        this.marker.unset();
+    _focusObject(pointer, x, y, ev) {
+        this.config.scene.marker.set(this.armatureDisplay);
+        ev.stopPropagation();
     }
 
     _setEvents() {
         this.interactiveZone.on('pointerdown', this._focusObject, this);
-        
-        this.config.scene.input.on('pointerdown', this._unFocusObject, this);
     }
 
     _createArmatureDisplay() {
@@ -56,13 +50,10 @@ class GameObject {
     preload() {
         this.armature = ArmatureFactory.create(this.config);
         this.armature.preload();
-        this.marker = new Marker(this.config.scene);
-        this.marker.preload();
     }
 
     create(spawn) {
         this._createArmatureDisplay();
-        this.marker.create();
         this._calculateDimensions();
         this._setDimensions();
         this._createInteractiveZone();

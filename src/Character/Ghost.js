@@ -23,10 +23,7 @@ class Ghost extends BaseCharacter {
 
     run(armatureDisplay, velocity, flipX) {
         super.run(armatureDisplay, velocity, flipX);
-
-        if (armatureDisplay.animation.lastAnimationName !== "run_0") {
-            armatureDisplay.armature.animation.play("run_0");
-        }
+        super.playAnimation("run_0");
     }
 
     create(armatureDisplay) {
