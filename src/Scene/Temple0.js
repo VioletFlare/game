@@ -91,7 +91,7 @@ class Temple0 extends BaseScene {
         this._createMap();
         this._createCharacters();
         this._createPhysics();
-        //this._createCamera();
+        this._createCamera();
     }
 
     update() {
