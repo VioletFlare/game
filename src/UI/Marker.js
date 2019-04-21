@@ -27,6 +27,7 @@ class Marker {
         if (this.scene.focusedArmatureDisplay) {
             const child = this.scene.focusedArmatureDisplay.getByName("marker");
             this.scene.focusedArmatureDisplay.remove(child, true);
+            this.scene.focusedArmatureDisplay = null;
         }
     }
 
