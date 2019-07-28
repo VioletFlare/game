@@ -28,25 +28,21 @@ class Fireball extends BaseSpell {
             blendMode: 'ADD',
             on: false
         });
+
     }
 
     cast(user, target) {
 
         if (target) {
-            const trajectory = new Phaser.Geom.Line(user.x, user.y, target.x, target.y),
-                emitZone = { 
-                    type: 'edge', 
-                    source: trajectory, 
-                    quantity: 48, 
-                    yoyo: false 
-                };
+            const trajectory = new Phaser.Geom.Line(user.x, user.y, target.x, target.y);
+            this.emitter.setPosition(user.x, user.y);
 
-            this.emitter.setEmitZone(emitZone);
-            this.emitter.emitParticle();
+            this.emitter.start();
+            //use pool
         }
 
     }
 
 }
 
-export default new Fireball();
+export default Fireball;
