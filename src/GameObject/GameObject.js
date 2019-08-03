@@ -19,9 +19,9 @@ class GameObject {
     }
 
     _createInteractiveZone() {
-        const halfOffestY = this.offsetY / 2;
+        const halfOffsetY = this.offsetY / 2;
 
-        this.interactiveZone = this.config.scene.add.zone(0, halfOffestY, this.width, this.height);
+        this.interactiveZone = this.config.scene.add.zone(0, halfOffsetY, this.width, this.height);
         this.interactiveZone.setName('interactiveZone');
         this.interactiveZone.setInteractive();
         this.armatureDisplay.add(this.interactiveZone);
