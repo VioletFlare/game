@@ -22,7 +22,7 @@ class Player extends GameObject {
     preload() {
         super.preload();
         this.cursors = this.config.scene.input.keyboard.createCursorKeys();
-        //Fireball.preload(this.config.scene);
+        Fireball.preload(this.config.scene);
     }
 
     create(playerSpawn) {
@@ -32,11 +32,15 @@ class Player extends GameObject {
         this.armatureDisplay.body.collideWorldBounds = true;
 
         this._createKeyCommands();
-        //Fireball.create();
+        Fireball.create();
     }
 
     _useAbility() {
-        //Fireball.cast(this.armatureDisplay, this.config.scene.focusedArmatureDisplay);
+        setTimeout(() => {
+            Fireball.cast(this.armatureDisplay, this.config.scene.focusedArmatureDisplay);
+        }, 20);
+        this.config.obj.cast(this.armatureDisplay);
+        
     }
 
     _createKeyCommands() {
