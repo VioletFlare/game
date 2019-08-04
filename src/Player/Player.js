@@ -36,11 +36,8 @@ class Player extends GameObject {
     }
 
     _useAbility() {
-        setTimeout(() => {
-            Fireball.cast(this.armatureDisplay, this.config.scene.focusedArmatureDisplay);
-        }, 20);
+        setTimeout(() => Fireball.cast(this.armatureDisplay, this.config.scene.focusedArmatureDisplay), 50);
         this.config.obj.cast(this.armatureDisplay);
-        
     }
 
     _createKeyCommands() {
@@ -51,19 +48,22 @@ class Player extends GameObject {
     }
 
     update() {
+        const isTouchingDown = this.armatureDisplay.body.touching.down,
+              isNotCasting = !(this.armatureDisplay.animation.lastAnimationName == "cast_0" && this.armatureDisplay.armature.animation.isPlaying),
+              isNotCursorDown = !(this.cursors.right.isDown || this.cursors.left.isDown || this.cursors.up.isDown),
+              isIdle = isTouchingDown && isNotCasting && isNotCursorDown;
 
         if (this.cursors.right.isDown) {
             this._run(this.config.runVelocity, false)
         } else if (this.cursors.left.isDown) {
             this._run(-this.config.runVelocity, true);
-        } else if (!this.armatureDisplay.body.isMoving && this.armatureDisplay.body.touching.down) {
+        } else if (isIdle) {
             this._idle();
         }
     
         if (this.cursors.up.isDown && this.armatureDisplay.body.touching.down) {
             this._jump();
         }
-
     }
 
 

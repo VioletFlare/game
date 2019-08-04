@@ -14,11 +14,11 @@ class Fireball extends Spell {
         this.emitterConfiguration = {
             frame: 'yellow',
             radial: false,
-            lifespan: 2000,
-            speedX: { min: 200, max: 400 },
-            quantity: 4,
-            gravityY: -50,
-            scale: { start: 0.6, end: 0, ease: 'Power3' },
+            lifespan: 1000,
+            speedX: { min: 50, max: 120 },
+            quantity: 1,
+            gravityY: 0,
+            scale: { start: 0.3, end: 0.1, ease: 'Power3' },
             blendMode: 'ADD',
             on: false
         };

@@ -22,7 +22,7 @@ class Girl extends BaseCharacter {
     }
 
     cast(armatureDisplay) {
-        super.playAnimation(armatureDisplay, "cast_0");
+        super.playAnimationOnce(armatureDisplay, "cast_0");
     }
 
     run(armatureDisplay, velocity, flipX) {

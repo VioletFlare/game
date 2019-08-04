@@ -16,7 +16,7 @@ class Temple0 extends BaseScene {
 
     _initCharacters() {
         const config = {
-            scale: 1,
+            scale: 0.45,
             scene: this,
             runVelocity: 160,
             jumpVelocity: 280,

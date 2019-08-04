@@ -15,6 +15,12 @@ class BaseCharacter {
         }
     }
 
+    playAnimationOnce(armatureDisplay, name) {
+        if (armatureDisplay.animation.lastAnimationName !== name) {
+            armatureDisplay.armature.animation.play(name, 1);
+        }
+    }
+
 }
 
 export default BaseCharacter;
