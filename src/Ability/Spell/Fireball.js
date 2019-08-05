@@ -27,9 +27,7 @@ class Fireball extends Spell {
     create() {
         super.create('flares', this.emitterConfiguration);
     }
-
     
-
 }
 
 export default new Fireball();

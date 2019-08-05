@@ -13,33 +13,60 @@ class Spell {
         this.emitter = this.particles.createEmitter(emitterConfiguration);
     }
 
+    getSpellOriginPos(user, armatureSlotImageNumber) {
+        const originalSlotImageRelativeX = user.list[armatureSlotImageNumber].x,
+              originalSlotImageRelativeY = user.list[armatureSlotImageNumber].y,
+              scaledSlotImageRelativeX = originalSlotImageRelativeX * user.scaleX,
+              scaledSlotImageRelativeY = originalSlotImageRelativeY * user.scaleY;
+
+        return {
+            x: user.x + scaledSlotImageRelativeX,
+            y: user.y + scaledSlotImageRelativeY
+        }
+    }
+
+    getSpellTargetPos(target) {
+        return {
+            x: target.body.center.x,
+            y: target.body.center.y
+        }
+    }
+
+    getEffectParameters(originPos, targetPos) {
+        const originTargetDistance = Phaser.Math.Distance.Between(originPos.x, originPos.y, targetPos.x, targetPos.y);
+
+        return {
+            rotation: 2.9 + Phaser.Math.Angle.Between(originPos.x, originPos.y, targetPos.x, targetPos.y),
+            duration: originTargetDistance * 5
+        }
+    }
+
+    createEffect(originPos, targetPos) {
+        const effectParameters = this.getEffectParameters(originPos, targetPos),
+        effectContainer = this.scene.add.container(originPos.x, originPos.y);
+
+        effectContainer.add(this.particles);
+        effectContainer.setPosition(originPos.x, originPos.y);
+        effectContainer.setRotation(effectParameters.rotation);
+
+        this.emitter.start();
+
+        this.scene.tweens.add({
+            targets: effectContainer,
+            x: targetPos.x, 
+            y: targetPos.y,
+            ease: 'Linear',
+            duration: effectParameters.duration
+        });
+    }
+
     cast(user, target) {
 
         if (target) {
-           const originPosY = user.y + (user.list[24].y * user.scaleY),
-            originPosX = user.x + (user.list[24].x * user.scaleX),
-            targetPosY = target.body.center.y,
-            targetPosX = target.body.center.x,
-            originTargetDistance = Phaser.Math.Distance.Between(originPosX, originPosY, targetPosX, targetPosY),
-            angleRad = Phaser.Math.Angle.Between(originPosX, originPosY, targetPosX, targetPosY),
-            angleDeg = Phaser.Math.RadToDeg(angleRad),
-            duration = originTargetDistance * 5,
-            container = 
+           const originPos = this.getSpellOriginPos(user, 24),
+            targetPos = this.getSpellTargetPos(target);
 
-            this.particles.setPosition(originPosX, originPosY);
-            this.particles.setAngle(angleDeg);
-
-            this.emitter.start();
-
-            this.scene.tweens.add({
-                targets: this.particles,
-                x: targetPosX, 
-                y: targetPosY,
-                ease: 'Linear',
-                duration: duration
-            });
-
-            //use pool
+            this.createEffect(originPos, targetPos);
         }
 
     }
