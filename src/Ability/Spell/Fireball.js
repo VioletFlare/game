@@ -25,6 +25,8 @@ class Fireball extends Spell {
         this.physicConfiguration = {
             width: 20,
             height: 20,
+            offsetX: -10,
+            offsetY: -8
         };
     }
 

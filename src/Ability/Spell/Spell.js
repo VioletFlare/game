@@ -25,9 +25,9 @@ class Spell {
         return new Phaser.Math.Vector2(x, y);
     }
 
-    _setDimensions(effectContainer) {
+    _setEffectContainerDimensions(effectContainer) {
         effectContainer.body.setSize(this.physicConfiguration.width, this.physicConfiguration.height);
-        //effectContainer.body.offset.set(this.physicConfiguration.offsetX, this.physicConfiguration.offsetY);
+        effectContainer.body.offset.set(this.physicConfiguration.offsetX, this.physicConfiguration.offsetY);
     }
 
     _getSpellTargetPos(target) {
@@ -41,27 +41,29 @@ class Spell {
         }
     }
 
-    _createEffectContainer(originPos, effectParameters) {
-        const effectContainer = this.scene.add.container(originPos.x, originPos.y),
-            particles = this.scene.add.particles(this.atlasName),
-            emitter = particles.createEmitter(this.emitterConfiguration);
+    _setupEffectContainerPhysics(effectContainer) {
+        this.scene.physics.world.enable(effectContainer);
+
+        effectContainer.body.allowGravity = false;
+        effectContainer.body.allowDrag = false;
+    }
+
+    _createEffectContainer(particles, originPos, effectParameters) {
+        const effectContainer = this.scene.add.container(originPos.x, originPos.y);
 
         effectContainer.add(particles);
         effectContainer.setPosition(originPos.x, originPos.y);
         effectContainer.setRotation(effectParameters.rotation);
 
-        this.scene.physics.world.enable(effectContainer);
-
-        effectContainer.body.allowGravity = false;
-        effectContainer.body.allowDrag = false;
-        this._setDimensions(effectContainer);
-
-        emitter.start();
-
         return effectContainer;
     }
 
-    _startEffect(targetPos, effectParameters, effectContainer) {
+    _createEmitter(particles) {
+        const emitter = particles.createEmitter(this.emitterConfiguration);
+        emitter.start();
+    }
+
+    _launchProjectileTowardsTarget(targetPos, effectParameters, effectContainer) {
         this.scene.physics.moveToObject(effectContainer, targetPos, effectParameters.speed);
     }
 
@@ -81,13 +83,19 @@ class Spell {
     cast(user, target) {
 
         if (target) {
-           const originPos = this._getSpellOriginPos(user, 24),
+           const particles = this.scene.add.particles(this.atlasName), 
+            originPos = this._getSpellOriginPos(user, 24),
             targetPos = this._getSpellTargetPos(target),
             effectParameters = this._getEffectParameters(originPos, targetPos),
-            effectContainer = this._createEffectContainer(originPos, effectParameters);
+            effectContainer = this._createEffectContainer(particles, originPos, effectParameters);
+
+            this._setupEffectContainerPhysics(effectContainer);
+            this._setEffectContainerDimensions(effectContainer);
             this._setEffectContainerTargetOverlap(target, effectContainer);
 
-            this._startEffect(targetPos, effectParameters, effectContainer);
+            this._createEmitter(particles);
+
+            this._launchProjectileTowardsTarget(targetPos, effectParameters, effectContainer);
         }
 
     }
