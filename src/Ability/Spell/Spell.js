@@ -8,65 +8,86 @@ class Spell {
         this.scene = scene;
     }
 
-    create(atlasName, emitterConfiguration) {
-        this.particles = this.scene.add.particles(atlasName);
-        this.emitter = this.particles.createEmitter(emitterConfiguration);
+    create(atlasName, emitterConfiguration, physicConfiguration) {
+        this.atlasName = atlasName;
+        this.emitterConfiguration = emitterConfiguration;
+        this.physicConfiguration = physicConfiguration;
     }
 
-    getSpellOriginPos(user, armatureSlotImageNumber) {
+    _getSpellOriginPos(user, armatureSlotImageNumber) {
         const originalSlotImageRelativeX = user.list[armatureSlotImageNumber].x,
               originalSlotImageRelativeY = user.list[armatureSlotImageNumber].y,
               scaledSlotImageRelativeX = originalSlotImageRelativeX * user.scaleX,
-              scaledSlotImageRelativeY = originalSlotImageRelativeY * user.scaleY;
+              scaledSlotImageRelativeY = originalSlotImageRelativeY * user.scaleY,
+              x = user.x + scaledSlotImageRelativeX,
+              y = user.y + scaledSlotImageRelativeY;
 
-        return {
-            x: user.x + scaledSlotImageRelativeX,
-            y: user.y + scaledSlotImageRelativeY
-        }
+        return new Phaser.Math.Vector2(x, y);
     }
 
-    getSpellTargetPos(target) {
-        return {
-            x: target.body.center.x,
-            y: target.body.center.y
-        }
+    _setDimensions(effectContainer) {
+        effectContainer.body.setSize(this.physicConfiguration.width, this.physicConfiguration.height);
+        //effectContainer.body.offset.set(this.physicConfiguration.offsetX, this.physicConfiguration.offsetY);
     }
 
-    getEffectParameters(originPos, targetPos) {
-        const originTargetDistance = Phaser.Math.Distance.Between(originPos.x, originPos.y, targetPos.x, targetPos.y);
+    _getSpellTargetPos(target) {
+        return new Phaser.Math.Vector2(target.body.center.x, target.body.center.y);
+    }
 
+    _getEffectParameters(originPos, targetPos) {
         return {
             rotation: 2.9 + Phaser.Math.Angle.Between(originPos.x, originPos.y, targetPos.x, targetPos.y),
-            duration: originTargetDistance * 5
+            speed: 150
         }
     }
 
-    createEffect(originPos, targetPos) {
-        const effectParameters = this.getEffectParameters(originPos, targetPos),
-        effectContainer = this.scene.add.container(originPos.x, originPos.y);
+    _createEffectContainer(originPos, effectParameters) {
+        const effectContainer = this.scene.add.container(originPos.x, originPos.y),
+            particles = this.scene.add.particles(this.atlasName),
+            emitter = particles.createEmitter(this.emitterConfiguration);
 
-        effectContainer.add(this.particles);
+        effectContainer.add(particles);
         effectContainer.setPosition(originPos.x, originPos.y);
         effectContainer.setRotation(effectParameters.rotation);
 
-        this.emitter.start();
+        this.scene.physics.world.enable(effectContainer);
 
-        this.scene.tweens.add({
-            targets: effectContainer,
-            x: targetPos.x, 
-            y: targetPos.y,
-            ease: 'Linear',
-            duration: effectParameters.duration
-        });
+        effectContainer.body.allowGravity = false;
+        effectContainer.body.allowDrag = false;
+        this._setDimensions(effectContainer);
+
+        emitter.start();
+
+        return effectContainer;
+    }
+
+    _startEffect(targetPos, effectParameters, effectContainer) {
+        this.scene.physics.moveToObject(effectContainer, targetPos, effectParameters.speed);
+    }
+
+    _setEffectContainerTargetOverlap(target, effectContainer) {
+        this.scene.physics.add.overlap(
+            target, 
+            effectContainer, 
+            () => { 
+                console.log("Spell Hit!"); 
+                effectContainer.destroy();
+            }, 
+            null, 
+            this.scene
+        );
     }
 
     cast(user, target) {
 
         if (target) {
-           const originPos = this.getSpellOriginPos(user, 24),
-            targetPos = this.getSpellTargetPos(target);
+           const originPos = this._getSpellOriginPos(user, 24),
+            targetPos = this._getSpellTargetPos(target),
+            effectParameters = this._getEffectParameters(originPos, targetPos),
+            effectContainer = this._createEffectContainer(originPos, effectParameters);
+            this._setEffectContainerTargetOverlap(target, effectContainer);
 
-            this.createEffect(originPos, targetPos);
+            this._startEffect(targetPos, effectParameters, effectContainer);
         }
 
     }

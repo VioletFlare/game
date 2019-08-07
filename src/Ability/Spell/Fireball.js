@@ -22,12 +22,16 @@ class Fireball extends Spell {
             blendMode: 'ADD',
             on: false
         };
+        this.physicConfiguration = {
+            width: 20,
+            height: 20,
+        };
     }
 
     create() {
-        super.create('flares', this.emitterConfiguration);
+        super.create('flares', this.emitterConfiguration, this.physicConfiguration);
     }
-    
+
 }
 
 export default new Fireball();
