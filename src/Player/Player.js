@@ -36,8 +36,10 @@ class Player extends GameObject {
     }
 
     _useAbility() {
-        setTimeout(() => Fireball.cast(this.armatureDisplay, this.config.scene.focusedArmatureDisplay), 50);
-        this.config.obj.cast(this.armatureDisplay);
+        if (this.config.scene.focusedArmatureDisplay) {
+            setTimeout(() => Fireball.cast(this.armatureDisplay, this.config.scene.focusedArmatureDisplay), 50);
+            this.config.obj.cast(this.armatureDisplay);
+        }
     }
 
     _createKeyCommands() {
