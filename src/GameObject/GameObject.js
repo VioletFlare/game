@@ -52,10 +52,22 @@ class GameObject {
         this.armature.preload();
     }
 
+    _setSpellOriginPos() {
+        const originalSlotImageRelativeX = this.armatureDisplay.list[this.config.spellOriginSlotNumber].x,
+              originalSlotImageRelativeY = this.armatureDisplay.list[this.config.spellOriginSlotNumber].y,
+              scaledSlotImageRelativeX = originalSlotImageRelativeX * this.armatureDisplay.scaleX,
+              scaledSlotImageRelativeY = originalSlotImageRelativeY * this.armatureDisplay.scaleY,
+              x = this.armatureDisplay.x + scaledSlotImageRelativeX,
+              y = this.armatureDisplay.y + scaledSlotImageRelativeY;
+
+        this.spellOriginPos = new Phaser.Math.Vector2(x, y);
+    }
+
     create(spawn) {
         this._createArmatureDisplay();
         this._calculateDimensions();
         this._setDimensions();
+        this._setSpellOriginPos();
         this._createInteractiveZone();
         this._setSpawn(spawn);
         this._setEvents();

@@ -24,27 +24,27 @@ class Marker {
     }
 
     _removePreviousMarker() {
-        if (this.scene.focusedArmatureDisplay) {
-            const child = this.scene.focusedArmatureDisplay.getByName("marker");
-            this.scene.focusedArmatureDisplay.remove(child, true);
-            this.scene.focusedArmatureDisplay = null;
+        if (this.scene.focusedGameObject.armatureDisplay) {
+            const child = this.scene.armatureDisplay.getByName("marker");
+            this.scene.focusedGameObject.armatureDisplay.remove(child, true);
+            this.scene.focusedGameObject.armatureDisplay = null;
         }
     }
 
     _createNewMarker() {
-        const height = -(this.scene.focusedArmatureDisplay.armature.armatureData.canvas.height + 80);
+        const height = -(this.scene.focusedGameObject.armatureDisplay.armature.armatureData.canvas.height + 80);
         const gems = this.scene.add.sprite(0, height, 'gems');
 
         gems.setName("marker");
         gems.play('prism');
 
-        this.scene.focusedArmatureDisplay.add(gems);
+        this.scene.focusedGameObject.armatureDisplay.add(gems);
     }
 
-    set(armatureDisplay) {
+    set(gameObject) {
         this._removePreviousMarker();
 
-        this.scene.focusedArmatureDisplay = armatureDisplay;
+        this.scene.focusedGameObject = gameObject;
 
         this._createNewMarker();
     }
