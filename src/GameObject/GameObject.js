@@ -67,7 +67,6 @@ class GameObject {
         this._createArmatureDisplay();
         this._calculateDimensions();
         this._setDimensions();
-        this._setSpellOriginPos();
         this._createInteractiveZone();
         this._setSpawn(spawn);
         this._setEvents();

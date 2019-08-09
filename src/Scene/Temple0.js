@@ -4,8 +4,8 @@ import temple0 from '../../assets/maps/temple0';
 import InvisibleWalls from '../Physics/InvisibleWalls';
 import PlayerFactory from '../Player/PlayerFactory';
 import NpcFactory from '../Npc/NpcFactory';
-import Girl from '../Character/Girl';
-import Ghost from '../Character/Ghost';
+import Girl from '../Skin/Girl';
+import Ghost from '../Skin/Ghost';
 import BaseScene from './BaseScene';
 
 class Temple0 extends BaseScene {

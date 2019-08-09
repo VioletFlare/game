@@ -23,7 +23,6 @@ class Player extends GameObject {
     preload() {
         super.preload();
         this.cursors = this.config.scene.input.keyboard.createCursorKeys();
-        Fireball.preload(this.config.scene);
     }
 
     create(playerSpawn) {
@@ -37,22 +36,22 @@ class Player extends GameObject {
 
     _useAbility() {
         if (this.config.scene.focusedGameObject) {
-            const effect = new Effect(this.scene.ability.fireball),
+            const effect = new Effect(this.config.scene.abilities.fireball),
                 projectile = new Projectile(this, this.config.scene.focusedGameObject, effect);
 
             setTimeout(
                 () => projectile.launch(), 50
             );
-            
+
             this.config.skin.cast(this.armatureDisplay);
         }
     }
 
     _createKeyCommands() {
         var spaceKey = this.config.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        spaceKey.on('down', () => {
-            this._useAbility();
-        });
+        spaceKey.on('down', 
+            () => this._useAbility()
+        );
     }
 
     update() {
