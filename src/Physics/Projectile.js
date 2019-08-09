@@ -4,14 +4,13 @@ class Projectile {
         this.user = user;
         this.target = target;
         this.effect = effect;
-        this.armatureSlotImageNumber = 24;
     }
 
     _initParameters() {
-        this.originPos = user.getOriginPosFromArmatureSlot();
-        this.targetPos = target.armatureDisplay.body.center;
-        this.rotation = 2.9 + Phaser.Math.Angle.Between(this.originPos.x, this.originPos.y, this.targetPos.x, this.targetPos.y);
-        this.speed = 150;
+        this.originPos = this.user.getSpellOriginPos();
+        this.targetPos = this.target.armatureDisplay.body.center;
+        this.rotation = this.effect.physicConfiguration.rotationOffset + 
+                        Phaser.Math.Angle.Between(this.originPos.x, this.originPos.y, this.targetPos.x, this.targetPos.y);
     }
 
     _setupEffect() {
@@ -20,7 +19,7 @@ class Projectile {
     }
 
     _setOverlapTarget() {
-        this.scene.physics.add.overlap(
+        this.effect.scene.physics.add.overlap(
             this.target.armatureDisplay, 
             this.effect.container, 
             () => { 
@@ -28,7 +27,7 @@ class Projectile {
                 this.effect.container.destroy();
             }, 
             null, 
-            this.scene
+            this.effect.scene
         );
     }
 
@@ -37,7 +36,7 @@ class Projectile {
         this._setupEffect();
         this._setOverlapTarget();
 
-        this.scene.physics.moveToObject(this.container, this.targetPos, this.speed);
+        this.effect.scene.physics.moveToObject(this.effect.container, this.targetPos, this.effect.physicConfiguration.speed);
     }
 
 }

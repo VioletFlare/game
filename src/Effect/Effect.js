@@ -1,6 +1,7 @@
 class Effect {
 
     constructor(config) {
+        this.scene = config.scene;
         this.particles = this.scene.add.particles(config.atlasName);
         this.emitter = this.particles.createEmitter(config.emitterConfiguration);
         this.physicConfiguration = config.physicConfiguration;

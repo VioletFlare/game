@@ -25,7 +25,7 @@ class Marker {
 
     _removePreviousMarker() {
         if (this.scene.focusedGameObject) {
-            const child = this.scene.armatureDisplay.getByName("marker");
+            const child = this.scene.focusedGameObject.armatureDisplay.getByName("marker");
             this.scene.focusedGameObject.armatureDisplay.remove(child, true);
             this.scene.focusedGameObject = null;
         }

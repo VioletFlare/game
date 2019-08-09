@@ -53,8 +53,8 @@ class GameObject {
     }
 
     getSpellOriginPos() {
-        const originalSlotImageRelativeX = this.armatureDisplay.list[this.config.spellOriginSlotNumber].x,
-              originalSlotImageRelativeY = this.armatureDisplay.list[this.config.spellOriginSlotNumber].y,
+        const originalSlotImageRelativeX = this.armatureDisplay.list[this.config.skin.spellOriginSlotNumber].x,
+              originalSlotImageRelativeY = this.armatureDisplay.list[this.config.skin.spellOriginSlotNumber].y,
               scaledSlotImageRelativeX = originalSlotImageRelativeX * this.armatureDisplay.scaleX,
               scaledSlotImageRelativeY = originalSlotImageRelativeY * this.armatureDisplay.scaleY,
               x = this.armatureDisplay.x + scaledSlotImageRelativeX,

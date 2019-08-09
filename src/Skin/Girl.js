@@ -14,6 +14,8 @@ class Girl extends BaseSkin {
             texJson: texJson,
             skeDbbin: skeDbbin
         }
+
+        this.spellOriginSlotNumber = 24;
     }
 
     idle(armatureDisplay) {

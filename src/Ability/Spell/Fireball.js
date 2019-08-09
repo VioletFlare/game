@@ -20,7 +20,9 @@ class Fireball {
             width: 20,
             height: 20,
             offsetX: -10,
-            offsetY: -8
+            offsetY: -8,
+            rotationOffset: 2.9,
+            speed: 150
         };
 
         this.key = 'flares';
