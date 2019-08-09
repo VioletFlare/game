@@ -7,7 +7,6 @@ import NpcFactory from '../Npc/NpcFactory';
 import Girl from '../Character/Girl';
 import Ghost from '../Character/Ghost';
 import BaseScene from './BaseScene';
-import Fireball from '../Effect/Fireball';
 
 class Temple0 extends BaseScene {
     
@@ -21,7 +20,7 @@ class Temple0 extends BaseScene {
             scene: this,
             runVelocity: 160,
             jumpVelocity: 280,
-            obj: Girl
+            skin: Girl
         }
 
         this.player = PlayerFactory.create(config);
@@ -31,18 +30,10 @@ class Temple0 extends BaseScene {
             scene: this,
             runVelocity: 160,
             jumpVelocity: 280,
-            obj: Ghost
+            skin: Ghost
         }
 
         this.ghost = NpcFactory.create(ghostconf);
-    }
-
-    _initAbilities() {
-        this.fireball = new Fireball(this);
-    }
-
-    _preloadAbilities() {
-        this.fireball.preload();
     }
 
     _preloadCharacters() {
@@ -90,9 +81,7 @@ class Temple0 extends BaseScene {
 
     preload() {
         super.preload();
-        this._initAbilities();
         this._initCharacters();
-        this._preloadAbilities();
         this._preloadCharacters();
         this._preloadMap();
     }

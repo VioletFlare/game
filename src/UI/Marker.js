@@ -24,10 +24,10 @@ class Marker {
     }
 
     _removePreviousMarker() {
-        if (this.scene.focusedGameObject.armatureDisplay) {
+        if (this.scene.focusedGameObject) {
             const child = this.scene.armatureDisplay.getByName("marker");
             this.scene.focusedGameObject.armatureDisplay.remove(child, true);
-            this.scene.focusedGameObject.armatureDisplay = null;
+            this.scene.focusedGameObject = null;
         }
     }
 

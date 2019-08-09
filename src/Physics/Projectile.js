@@ -5,26 +5,23 @@ class Projectile {
         this.target = target;
         this.effect = effect;
         this.armatureSlotImageNumber = 24;
-        this.originPos = this._getOriginPosFromArmatureSlot();
-        this.targetPos = this._getTargetPos();
+    }
+
+    _initParameters() {
+        this.originPos = user.getOriginPosFromArmatureSlot();
+        this.targetPos = target.armatureDisplay.body.center;
         this.rotation = 2.9 + Phaser.Math.Angle.Between(this.originPos.x, this.originPos.y, this.targetPos.x, this.targetPos.y);
         this.speed = 150;
     }
 
-    _getTargetPos() {
-        return new Phaser.Math.Vector2(this.target.body.center.x, this.target.body.center.y);
-    }
-
-    create() {
+    _setupEffect() {
         this.effect.create(this.originPos);
         this.effect.container.setRotation(this.rotation);
-
-        this._setEffectContainerTargetOverlap();
     }
 
-    _setEffectContainerTargetOverlap() {
+    _setOverlapTarget() {
         this.scene.physics.add.overlap(
-            this.target, 
+            this.target.armatureDisplay, 
             this.effect.container, 
             () => { 
                 console.log("Projectile Hit!"); 
@@ -36,6 +33,10 @@ class Projectile {
     }
 
     launch() {
+        this._initParameters();
+        this._setupEffect();
+        this._setOverlapTarget();
+
         this.scene.physics.moveToObject(this.container, this.targetPos, this.speed);
     }
 
