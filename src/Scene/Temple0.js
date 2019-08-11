@@ -4,8 +4,8 @@ import temple0 from '../../assets/maps/temple0';
 import InvisibleWalls from '../Physics/InvisibleWalls';
 import PlayerFactory from '../Player/PlayerFactory';
 import NpcFactory from '../Npc/NpcFactory';
-import Girl from '../Character/Girl';
-import Ghost from '../Character/Ghost';
+import Girl from '../Skin/Girl';
+import Ghost from '../Skin/Ghost';
 import BaseScene from './BaseScene';
 
 class Temple0 extends BaseScene {
@@ -20,7 +20,7 @@ class Temple0 extends BaseScene {
             scene: this,
             runVelocity: 160,
             jumpVelocity: 280,
-            obj: Girl
+            skin: Girl
         }
 
         this.player = PlayerFactory.create(config);
@@ -30,7 +30,7 @@ class Temple0 extends BaseScene {
             scene: this,
             runVelocity: 160,
             jumpVelocity: 280,
-            obj: Ghost
+            skin: Ghost
         }
 
         this.ghost = NpcFactory.create(ghostconf);

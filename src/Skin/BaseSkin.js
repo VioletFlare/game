@@ -1,4 +1,4 @@
-class BaseCharacter {
+class BaseSkin {
     
     run(armatureDisplay, velocity, flipX) {
         armatureDisplay.body.setVelocityX(velocity)
@@ -23,4 +23,4 @@ class BaseCharacter {
 
 }
 
-export default BaseCharacter;
+export default BaseSkin;

@@ -34,7 +34,7 @@ class GameObject {
 
 
     _focusObject(pointer, x, y, ev) {
-        this.config.scene.marker.set(this.armatureDisplay);
+        this.config.scene.marker.set(this);
         ev.stopPropagation();
     }
 
@@ -50,6 +50,17 @@ class GameObject {
     preload() {
         this.armature = ArmatureFactory.create(this.config);
         this.armature.preload();
+    }
+
+    getSpellOriginPos() {
+        const originalSlotImageRelativeX = this.armatureDisplay.list[this.config.skin.spellOriginSlotNumber].x,
+              originalSlotImageRelativeY = this.armatureDisplay.list[this.config.skin.spellOriginSlotNumber].y,
+              scaledSlotImageRelativeX = originalSlotImageRelativeX * this.armatureDisplay.scaleX,
+              scaledSlotImageRelativeY = originalSlotImageRelativeY * this.armatureDisplay.scaleY,
+              x = this.armatureDisplay.x + scaledSlotImageRelativeX,
+              y = this.armatureDisplay.y + scaledSlotImageRelativeY;
+
+        return new Phaser.Math.Vector2(x, y);
     }
 
     create(spawn) {

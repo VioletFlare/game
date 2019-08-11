@@ -13,11 +13,11 @@ class Npc extends GameObject {
 
     create(playerSpawn) {
         super.create(playerSpawn);
-        this.config.obj.create(this.armatureDisplay);
+        this.config.skin.create(this.armatureDisplay);
     }
 
     _run(velocity) {
-        this.config.obj.run(this.armatureDisplay, velocity, this.flipX);
+        this.config.skin.run(this.armatureDisplay, velocity, this.flipX);
     }
 
     patrol() {

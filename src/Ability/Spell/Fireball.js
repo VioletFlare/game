@@ -1,16 +1,9 @@
-import Spell from './Spell';
 import texPng from '../../../assets/flares/flares_tex.png';
 import texJson from '../../../assets/flares/flares_tex.json';
 
-class Fireball extends Spell {
+class Fireball {
 
-    constructor() {
-        super();
-    }
-
-    preload(scene) {
-        super.preload(scene);
-        this.scene.load.atlas('flares', texPng, texJson);
+    constructor(scene) {
         this.emitterConfiguration = {
             frame: 'yellow',
             radial: false,
@@ -22,18 +15,25 @@ class Fireball extends Spell {
             blendMode: 'ADD',
             on: false
         };
+
         this.physicConfiguration = {
             width: 20,
             height: 20,
             offsetX: -10,
-            offsetY: -8
+            offsetY: -8,
+            rotationOffset: 2.9,
+            speed: 150
         };
+
+        this.atlasName = 'flares';
+
+        this.scene = scene;
     }
 
-    create() {
-        super.create('flares', this.emitterConfiguration, this.physicConfiguration);
+    preload() {
+        this.scene.load.atlas(this.atlasName, texPng, texJson);
     }
 
 }
 
-export default new Fireball();
+export default Fireball;

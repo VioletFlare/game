@@ -1,5 +1,6 @@
 import GameObject from "../GameObject/GameObject";
-import Fireball from '../Ability/Spell/Fireball';
+import Projectile from '../Physics/Projectile';
+import Effect from "../Effect/Effect";
 
 class Player extends GameObject {
 
@@ -8,11 +9,11 @@ class Player extends GameObject {
     }
 
     _run(velocity, flipX) {
-        this.config.obj.run(this.armatureDisplay, velocity, flipX);
+        this.config.skin.run(this.armatureDisplay, velocity, flipX);
     }
 
     _idle() {
-        this.config.obj.idle(this.armatureDisplay);
+        this.config.skin.idle(this.armatureDisplay);
     }
 
     _jump() {
@@ -22,31 +23,34 @@ class Player extends GameObject {
     preload() {
         super.preload();
         this.cursors = this.config.scene.input.keyboard.createCursorKeys();
-        Fireball.preload(this.config.scene);
     }
 
     create(playerSpawn) {
         super.create(playerSpawn);
 
-        this.armatureDisplay.body.setBounce(0, 0.4);
         this.armatureDisplay.body.collideWorldBounds = true;
 
         this._createKeyCommands();
-        Fireball.create();
     }
 
     _useAbility() {
-        if (this.config.scene.focusedArmatureDisplay) {
-            setTimeout(() => Fireball.cast(this.armatureDisplay, this.config.scene.focusedArmatureDisplay), 50);
-            this.config.obj.cast(this.armatureDisplay);
+        if (this.config.scene.focusedGameObject) {
+            const effect = new Effect(this.config.scene.abilities.fireball),
+                projectile = new Projectile(this, this.config.scene.focusedGameObject, effect);
+
+            setTimeout(
+                () => projectile.launch(), 50
+            );
+
+            this.config.skin.throwSpell(this.armatureDisplay);
         }
     }
 
     _createKeyCommands() {
         var spaceKey = this.config.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        spaceKey.on('down', () => {
-            this._useAbility();
-        });
+        spaceKey.on('down', 
+            () => this._useAbility()
+        );
     }
 
     update() {

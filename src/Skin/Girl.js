@@ -1,9 +1,9 @@
 import texPng from "../../assets/girl/girl_tex.png";
 import texJson from "../../assets/girl/girl_tex.json";
 import skeDbbin from "../../assets/girl/girl_ske.dbbin";
-import BaseCharacter from "./BaseCharacter";
+import BaseSkin from "./BaseSkin";
 
-class Girl extends BaseCharacter {
+class Girl extends BaseSkin {
 
     constructor() {
         super();
@@ -14,6 +14,8 @@ class Girl extends BaseCharacter {
             texJson: texJson,
             skeDbbin: skeDbbin
         }
+
+        this.spellOriginSlotNumber = 24;
     }
 
     idle(armatureDisplay) {
@@ -21,7 +23,7 @@ class Girl extends BaseCharacter {
         super.playAnimation(armatureDisplay, "idle_0");
     }
 
-    cast(armatureDisplay) {
+    throwSpell(armatureDisplay) {
         super.playAnimationOnce(armatureDisplay, "cast_0");
     }
 
