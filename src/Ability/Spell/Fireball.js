@@ -22,10 +22,16 @@ class Fireball {
             offsetX: -10,
             offsetY: -8,
             rotationOffset: 2.9,
-            speed: 150
+            speed: 150,
+            launchTimeOffset: 50
         };
 
+        this.animationName = 'cast_0';
         this.atlasName = 'flares';
+        this.name = 'Fireball';
+
+        this.isSpell = true;
+        this.isRanged = true;
 
         this.scene = scene;
     }

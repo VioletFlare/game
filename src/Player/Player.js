@@ -1,6 +1,5 @@
 import GameObject from "../GameObject/GameObject";
-import Projectile from '../Physics/Projectile';
-import Effect from "../Effect/Effect";
+import SpellManager from '../Ability/Spell/SpellManager'
 
 class Player extends GameObject {
 
@@ -34,26 +33,11 @@ class Player extends GameObject {
         this._createKeyCommands();
     }
 
-    _useSpell() {
-        const effect = new Effect(this.config.scene.abilities.fireball),
-        projectile = new Projectile(this, this.config.scene.focusedGameObject, effect);
-
-        setTimeout(
-            () => projectile.launch(), 50
-        );
-
-        this.config.skin.throwSpell(this.armatureDisplay);
-
-        setTimeout(
-            () => this.isNotIdleAnimationBlocked = true, 700
-        );
-    }
-
     _useAbility(abilityConfig) {
         this.isNotIdleAnimationBlocked = false;
 
         if (abilityConfig.isSpell) {
-            this._useSpell(abilityConfig.spellConfig);
+            SpellManager.use(abilityConfig)
         } else if (abilityConfig.isRanged) {
 
         } else if (abilityConfig.isMeele) {
@@ -66,14 +50,10 @@ class Player extends GameObject {
             upKey = this.config.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
 
         spaceKey.on('down', 
-            () => this.isNotMoving  ? this._useAbility({
-                isSpell: true,
-                isRanged: true,
-                isMeele: false,
-                spellConfig: {
-                    user: this,
-                    target: this.config.scene.focusedGameObject
-                }
+            () => this.isNotMoving ? this._useAbility({
+                user: this,
+                target: this.config.scene.focusedGameObject,
+                ...this.config.scene.abilities.fireball
             }): 0
         );
 
@@ -83,7 +63,7 @@ class Player extends GameObject {
     }
 
     update() {
-        this.isNotMoving = !(this.cursors.right.isDown || this.cursors.left.isDown || this.cursors.up.isDown) && this.armatureDisplay.body.touching.down,
+        this.isNotMoving = !(this.cursors.right.isDown || this.cursors.left.isDown || this.cursors.up.isDown) && this.armatureDisplay.body.touching.down;
         this.isIdle = this.isNotIdleAnimationBlocked && this.isNotMoving;
 
         if (this.isIdle) {

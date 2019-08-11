@@ -32,11 +32,15 @@ class Projectile {
     }
 
     launch() {
-        this._initParameters();
-        this._setupEffect();
-        this._setOverlapTarget();
-
-        this.effect.scene.physics.moveToObject(this.effect.container, this.targetPos, this.effect.physicConfiguration.speed);
+        setTimeout(
+            () => {
+                this._initParameters();
+                this._setupEffect();
+                this._setOverlapTarget();
+                this.effect.scene.physics.moveToObject(this.effect.container, this.targetPos, this.effect.physicConfiguration.speed)
+            },
+            this.effect.physicConfiguration.launchTimeOffset
+        );
     }
 
 }
