@@ -23,7 +23,7 @@ class Girl extends BaseSkin {
         super.playAnimation(armatureDisplay, "idle_0");
     }
 
-    cast(armatureDisplay) {
+    throwSpell(armatureDisplay) {
         super.playAnimationOnce(armatureDisplay, "cast_0");
     }
 

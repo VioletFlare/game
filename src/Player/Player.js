@@ -42,7 +42,7 @@ class Player extends GameObject {
                 () => projectile.launch(), 50
             );
 
-            this.config.skin.cast(this.armatureDisplay);
+            this.config.skin.throwSpell(this.armatureDisplay);
         }
     }
 
