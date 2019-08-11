@@ -28,7 +28,6 @@ class Player extends GameObject {
     create(playerSpawn) {
         super.create(playerSpawn);
 
-        this.armatureDisplay.body.setBounce(0, 0.4);
         this.armatureDisplay.body.collideWorldBounds = true;
 
         this._createKeyCommands();

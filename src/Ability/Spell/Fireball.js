@@ -25,13 +25,13 @@ class Fireball {
             speed: 150
         };
 
-        this.key = 'flares';
+        this.atlasName = 'flares';
 
         this.scene = scene;
     }
 
     preload() {
-        this.scene.load.atlas(this.key, texPng, texJson);
+        this.scene.load.atlas(this.atlasName, texPng, texJson);
     }
 
 }
