@@ -11,7 +11,7 @@ import BaseScene from './BaseScene';
 class Temple0 extends BaseScene {
     
     constructor() {
-        super();
+        super('Game');
     }
 
     _initCharacters() {
