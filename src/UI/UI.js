@@ -1,4 +1,5 @@
 import HotkeyBar from '../UI/HotkeyBar';
+import AbilityBook from '../UI/AbilityBook';
 
 class UI extends Phaser.Scene {
 
@@ -11,6 +12,7 @@ class UI extends Phaser.Scene {
 
     create() {
         HotkeyBar.create(this);
+        AbilityBook.create(this);
     }
 
 }

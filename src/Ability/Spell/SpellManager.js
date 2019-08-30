@@ -3,10 +3,17 @@ import Effect from "../../Effect/Effect";
 
 class SpellManager {
 
+    _getAnimationDuration(abilityConfig) {
+        const animationDuration = abilityConfig.user.armatureDisplay.armature.animation.animations[abilityConfig.animationName].duration,
+        animationDurationMs = Math.floor(animationDuration * 1000);
+
+        return animationDurationMs;
+    }
+
     _throw(abilityConfig) {
-        const effect = new Effect(abilityConfig.user.config.scene.abilities.fireball),
+        const effect = new Effect(abilityConfig),
             projectile = new Projectile(abilityConfig.user, abilityConfig.target, effect),
-            animationDuration = Math.floor(abilityConfig.user.armatureDisplay.armature.animation.animations["cast_0"].duration * 1000);
+            animationDuration = this._getAnimationDuration(abilityConfig);
 
         projectile.launch()
 

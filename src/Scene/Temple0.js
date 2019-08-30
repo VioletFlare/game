@@ -41,12 +41,21 @@ class Temple0 extends BaseScene {
         this.ghost.preload();
     }
 
+    _setAbilities() {
+        this.player.abilities = [{
+            name: 'fireball',
+            boundKey: Phaser.Input.Keyboard.KeyCodes.ONE
+        }];
+    }
+
     _createCharacters() {
         let playerLayer = Utils.findObjectLayerByName(this.map, 'player');
         let playerSpawn = Utils.findObjectsByName(playerLayer, 'player_spawn');
         this.player.create(playerSpawn);
         playerSpawn[0].x += 150;
         this.ghost.create(playerSpawn);
+        
+        this._setAbilities();
     }
 
     _updateCharacters() {
@@ -68,6 +77,7 @@ class Temple0 extends BaseScene {
     _createPhysics() {
         let collisionLayer = Utils.findObjectLayerByName(this.map, 'collision');
         let invisibleWalls = InvisibleWalls.create(this, collisionLayer);
+        
         this.physics.world.setBounds(0, 0, 42*32, 32*32);
         this.physics.add.collider(this.player.armatureDisplay, invisibleWalls);
         this.physics.add.collider(this.ghost.armatureDisplay, invisibleWalls);

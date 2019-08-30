@@ -1,5 +1,6 @@
 import texPng from '../../../assets/flares/flares_tex.png';
 import texJson from '../../../assets/flares/flares_tex.json';
+import icon from '../../../assets/icon/fireball_icon.png';
 
 class Fireball {
 
@@ -15,7 +16,6 @@ class Fireball {
             blendMode: 'ADD',
             on: false
         };
-
         this.physicConfiguration = {
             width: 20,
             height: 20,
@@ -25,14 +25,16 @@ class Fireball {
             speed: 150,
             launchTimeOffset: 50
         };
-
         this.animationName = 'cast_0';
         this.atlasName = 'flares';
+        this.id = 'fireball';
         this.name = 'Fireball';
-
+        this.description = "A well known trick among most magic users.";
+        this.dmg = 15;
+        this.dmgType = 'fire';
+        this.icon = icon;
         this.isSpell = true;
         this.isRanged = true;
-
         this.scene = scene;
     }
 
