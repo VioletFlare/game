@@ -1,0 +1,22 @@
+.hotkeyBarContainer {
+
+    display: flex;
+    justify-content: center;
+
+    .hotkeyBar {
+        padding-inline-start: 0px;
+        list-style-type: none;
+        width: auto;
+        display: flex;
+    
+        li {
+            pointer-events: all;
+            margin: 0 2px;
+            border: 1px solid gray;
+            width: 32px;
+            height: 32px;
+            background-image: var(--hotkey-icon-bg-img)
+        }
+    
+    }
+}

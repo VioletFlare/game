@@ -1,157 +1,66 @@
-const COLOR_LIGHT = 0x7b5e57;
-const COLOR_DARK = 0x260e04;
-
-const Random = Phaser.Math.Between;
+import icon from '../../assets/icon/fireball_icon.png';
 
 class HotkeyBar {
 
-    _getLabelConfig(cell) {
-        const background = cell.scene.rexUI.add.roundRectangle(0, 0, 20, 20, 0).setStrokeStyle(2, COLOR_DARK),
-            icon = cell.scene.rexUI.add.roundRectangle(0, 0, 20, 20, 10, 0x0),
-            text = cell.scene.add.text(0, 0, '');
-
-        return {
-            width: cell.width,
-            height: cell.height,
-            background: background,
+    constructor() {
+        this.hotkeyList = [{
+            name: 'fireball',
             icon: icon,
-            text: text,
-            space: {
-                icon: 10,
-                left: 10
-            }
+            description: "bla bla bla"
+        }];
+        this.maxNumberOfHotkeys = 10;
+    }
+
+    _createHotkeyBar() {
+        this.hotkeyBarContainer = document.createElement('div');
+        this.hotkeyBar = document.createElement('ul');
+
+        this.hotkeyBarContainer.classList.add("hotkeyBarContainer");
+        this.hotkeyBar.dataset.id = 0;
+        this.hotkeyBar.classList.add("hotkeyBar");
+        
+        this.hotkeyBarContainer.append(this.hotkeyBar);
+        this.uiLayer.append(this.hotkeyBarContainer);
+    }
+
+    _createHotkey(hotkeyId) {
+        const hotkey = document.createElement('li');
+
+        hotkey.dataset.id = hotkeyId;
+
+        this.hotkeyBar.append(hotkey);
+    }
+
+    _createHotkeys() {
+        for (let hotkeyId = 0; hotkeyId < this.maxNumberOfHotkeys; hotkeyId++) {
+            this._createHotkey(hotkeyId);
         }
     }
 
-    _initCellContainer(cell, cellContainer) {
-        const labelConfig = this._getLabelConfig(cell);
+    _loadHotkey(hotkey, index) {
+        const currentHotkeySelector = `li[data-id='${index}']`,
+            currentHotkey = this.hotkeyBar.querySelector(currentHotkeySelector),
+            hotkeyIconUrl = `url(${hotkey.icon})`;
 
-        cellContainer = cell.scene.rexUI.add.label(labelConfig);
-
-        return cellContainer;
+        currentHotkey.title = hotkey.name;
+        currentHotkey.style.setProperty('--hotkey-icon-bg-img', hotkeyIconUrl);
     }
 
-    _setupCellContainer(cell, cellContainer) {
-        cellContainer.getElement('text').setText(cell.item.id); // Set text of text object
-        cellContainer.getElement('icon').setFillStyle(cell.item.color); // Set fill color of round rectangle object
-    }
-
-    _createCellContainerCallback(cell, cellContainer) {
-        const isCellContainerNull = cellContainer == null;
-
-        if (isCellContainerNull) cellContainer = this._initCellContainer(cell, cellContainer);
-
-        this._setupCellContainer(cell, cellContainer);
-
-        return cellContainer;
-    }
-
-    _getItems(count) {
-        const data = [];
-
-        for (let i = 0; i < count; i++) {
-            data.push({
-                id: i,
-                color: Random(0, 0xffffff)
-            });
-        }
-
-        return data;
-    }
-
-    _getGridTableConfig() {
-        const cellContainerCallback = (cell, cellContainer) => this._createCellContainerCallback(cell, cellContainer),
-            items = this._getItems(10);
-
-        return {
-            x: this.clientWidthCenter,
-            y: this.clientHeightBottom,
-            width: this.tableWidth,
-            height: this.tableHeight,
-            table: {
-                columns: 10,
-                reuseCellContainer: true,
-            },
-            slider: false,
-            createCellContainerCallback: cellContainerCallback,
-            items: items
-        }
-    }
-
-    _setEvents() {
-        this.gridTable
-            .on(
-                'cell.over', 
-                (cellContainer, cellIndex) => this._handleCellOver(cellContainer, cellIndex) 
-            )
-            .on(
-                'cell.out', 
-                (cellContainer, cellIndex) => this._handleCellOut(cellContainer, cellIndex) 
-            )
-            .on(
-                'cell.click', 
-                (cellContainer, cellIndex) => this._handleCellClick(cellContainer, cellIndex) 
-            )
-
-        this.scene.scale.on(
-            'resize', 
-            () => this._updateGridTablePosition()
+    _loadHotkeys() {
+        this.hotkeyList.forEach(
+            (hotkey, index) => this._loadHotkey(hotkey, index)
         )
     }
 
-    _handleCellOver(cellContainer, cellIndex) {
-        cellContainer
-        .getElement('background')
-        .setStrokeStyle(2, COLOR_LIGHT)
-        .setDepth(1);
+    _setup() {
+        this.uiLayer = document.querySelector('.uiLayer');
     }
 
-    _handleCellOut(cellContainer, cellIndex) {
-        cellContainer
-        .getElement('background')
-        .setStrokeStyle(2, COLOR_DARK)
-        .setDepth(0);
-    }
-
-    _handleCellClick(cellContainer, cellIndex) {
-        this.print.text += 'click ' + cellIndex + ': ' + cellContainer.text + '\n';
-    }
-
-    _updateGridTablePosition() {
-        this._calculateClientDimensions();
-
-        this.gridTable.x = this.clientWidthCenter; 
-        this.gridTable.y = this.clientHeightBottom;
-    }
-
-    _calculateClientDimensions() {
-        this.clientWidth = this.scene.sys.game.canvas.clientWidth;
-        this.clientHeight = this.scene.sys.game.canvas.clientHeight;
-        this.clientWidthCenter = this.clientWidth / 2;
-        this.clientHeightBottom = this.clientHeight - this.tableHeight;
-    }
-
-    _setGirdTableDimensions() {
-        this.tableWidth = 600;
-        this.tableHeight = 32;
-    }
-
-    _createGirdTable() {
-        const gridTableConfig = this._getGridTableConfig();
-        this.gridTable = this.scene.rexUI.add.gridTable(gridTableConfig).layout()
-    }
-
-    _createPrint() {
-        this.print = this.scene.add.text(0, 0, '');
-    }
-
-    create(scene) {
-        this.scene = scene;
-        this._setGirdTableDimensions();
-        this._calculateClientDimensions();
-        this._createGirdTable();
-        this._createPrint();
-        this._setEvents();
+    create() {
+        this._setup();
+        this._createHotkeyBar();
+        this._createHotkeys();
+        this._loadHotkeys();
     }
 
 }

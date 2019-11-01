@@ -4,12 +4,12 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        main: './src/main.js',
+        main: './src/Main.js',
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
-            template: './src/template.html'
+            template: './src/Template.html'
         }),
         new webpack.DefinePlugin({
             'CANVAS_RENDERER': JSON.stringify(true),
@@ -41,6 +41,14 @@ module.exports = {
                     }
                 ]
             },
+            {
+                test: /\.scss$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ],
+            }
         ]
     }
 };

@@ -1,5 +1,4 @@
 import Temple0 from '../Scene/Temple0';
-import UIPlugin from '../../lib/rexuiplugin';
 import UI from '../UI/UI';
 
 class Boot {
@@ -23,20 +22,14 @@ class Boot {
                 autoCenter: Phaser.Scale.CENTER_BOTH
             },
             disableContextMenu: true,
-            plugins: {
-                scene: [{
-                    key: 'rexUI',
-                    plugin: UIPlugin,
-                    mapping: 'rexUI'
-                }]
-            },
-            scene: [ Temple0, UI ]
+            scene: [ Temple0 ]
         };        
     }
 
     start() {
         this.game = new Phaser.Game(this.config);
-        return this.game;
+        this.ui = new UI();
+        this.ui.create();
     }
 
 } 

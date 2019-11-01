@@ -1,9 +1,9 @@
 class AbilityBook {
 
-    create(scene) {
+    create() {
 
     }
-
+    
 }
 
 export default new AbilityBook();

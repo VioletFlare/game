@@ -1,20 +1,23 @@
-import HotkeyBar from '../UI/HotkeyBar';
-import AbilityBook from '../UI/AbilityBook';
+import HotkeyBar from './HotkeyBar';
+import AbilityBook from './AbilityBook';
 
-class UI extends Phaser.Scene {
+class UI {
 
     constructor() {
-        super({
-            key: 'UI',
-            active: true
-        })
+        this.body = document.body;
+    }
+
+    _createUILayer() {
+        this.uiLayer = document.createElement('div');
+        this.uiLayer.classList.add('uiLayer');
+        this.body.append(this.uiLayer);
     }
 
     create() {
-        HotkeyBar.create(this);
-        AbilityBook.create(this);
+        this._createUILayer();
+        HotkeyBar.create();
+        AbilityBook.create();
     }
-
 }
 
 export default UI;
