@@ -1,3 +1,4 @@
+import DraggableManager from './DraggableManager';
 import HotkeyBar from './HotkeyBar';
 import AbilityBook from './AbilityBook';
 

@@ -8,15 +8,27 @@
         list-style-type: none;
         width: auto;
         display: flex;
-    
+        pointer-events: all;
+        
+        &.draggable li {
+            pointer-events: none;
+        }
+
         li {
-            pointer-events: all;
             margin: 0 2px;
             border: 1px solid gray;
             width: 32px;
             height: 32px;
-            background-image: var(--hotkey-icon-bg-img)
+            background-image: var(--hotkey-icon-bg-img);
+
+            &::before {
+                content: attr(data-id);
+                color: white;
+                margin-left: 2px;
+                text-shadow: 1px 1px black;
+            }
+        
         }
-    
+
     }
 }

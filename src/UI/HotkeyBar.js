@@ -1,12 +1,13 @@
 import icon from '../../assets/icon/fireball_icon.png';
+import delegate from 'delegate';
 
 class HotkeyBar {
 
     constructor() {
         this.hotkeyList = [{
+            hotkeyId: 1,
             name: 'fireball',
             icon: icon,
-            description: "bla bla bla"
         }];
         this.maxNumberOfHotkeys = 10;
     }
@@ -24,21 +25,26 @@ class HotkeyBar {
     }
 
     _createHotkey(hotkeyId) {
-        const hotkey = document.createElement('li');
+        const hotkey = document.createElement('li'),
+            isTenthHotkey = hotkeyId === this.maxNumberOfHotkeys;
 
-        hotkey.dataset.id = hotkeyId;
+        if (isTenthHotkey) {
+            hotkey.dataset.id = 0;
+        } else {
+            hotkey.dataset.id = hotkeyId;
+        }
 
         this.hotkeyBar.append(hotkey);
     }
 
     _createHotkeys() {
-        for (let hotkeyId = 0; hotkeyId < this.maxNumberOfHotkeys; hotkeyId++) {
+        for (let hotkeyId = 1; hotkeyId <= this.maxNumberOfHotkeys; hotkeyId++) {
             this._createHotkey(hotkeyId);
         }
     }
 
-    _loadHotkey(hotkey, index) {
-        const currentHotkeySelector = `li[data-id='${index}']`,
+    _loadHotkey(hotkey) {
+        const currentHotkeySelector = `li[data-id='${hotkey.hotkeyId}']`,
             currentHotkey = this.hotkeyBar.querySelector(currentHotkeySelector),
             hotkeyIconUrl = `url(${hotkey.icon})`;
 
@@ -48,8 +54,22 @@ class HotkeyBar {
 
     _loadHotkeys() {
         this.hotkeyList.forEach(
-            (hotkey, index) => this._loadHotkey(hotkey, index)
+            hotkey => this._loadHotkey(hotkey)
         )
+    }
+
+    _onHotkeyClicked(ev) {
+        const clickedHotkey = ev.delegateTarget;
+
+        console.log(clickedHotkey.dataset.id);
+    }
+
+    _setEvents() {
+        const hotkeysSelector = '.hotkeyBar li';
+
+        delegate(
+            hotkeysSelector, 'click', (ev) => this._onHotkeyClicked(ev)
+        );
     }
 
     _setup() {
@@ -61,6 +81,7 @@ class HotkeyBar {
         this._createHotkeyBar();
         this._createHotkeys();
         this._loadHotkeys();
+        this._setEvents();
     }
 
 }
