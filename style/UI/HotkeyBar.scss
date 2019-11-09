@@ -9,6 +9,10 @@
         width: auto;
         display: flex;
         pointer-events: all;
+        position: absolute;
+        margin: 0;
+        top: var(--draggable-element-top-px);
+        left: var(--draggable-element-left-px);
         
         &.draggable li {
             pointer-events: none;

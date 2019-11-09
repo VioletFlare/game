@@ -18,6 +18,7 @@ class UI {
         this._createUILayer();
         HotkeyBar.create();
         AbilityBook.create();
+        DraggableManager.create();
     }
 }
 
