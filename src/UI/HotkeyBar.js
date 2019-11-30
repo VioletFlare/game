@@ -4,12 +4,8 @@ import delegate from 'delegate';
 class HotkeyBar {
 
     constructor() {
-        this.hotkeyList = [{
-            hotkeyId: 1,
-            name: 'fireball',
-            icon: icon,
-        }];
-        this.maxNumberOfHotkeys = 10;
+        $G.hotkeys = {}
+        $G.hotkeys.maxNumber = 10;
     }
 
     _createHotkeyBar() {
@@ -26,7 +22,7 @@ class HotkeyBar {
 
     _createHotkey(hotkeyId) {
         const hotkey = document.createElement('li'),
-            isTenthHotkey = hotkeyId === this.maxNumberOfHotkeys;
+            isTenthHotkey = hotkeyId === $G.hotkeys.maxNumber;
 
         if (isTenthHotkey) {
             hotkey.dataset.id = 0;
@@ -38,7 +34,7 @@ class HotkeyBar {
     }
 
     _createHotkeys() {
-        for (let hotkeyId = 1; hotkeyId <= this.maxNumberOfHotkeys; hotkeyId++) {
+        for (let hotkeyId = 1; hotkeyId <= $G.hotkeys.maxNumber; hotkeyId++) {
             this._createHotkey(hotkeyId);
         }
     }
@@ -53,7 +49,7 @@ class HotkeyBar {
     }
 
     _loadHotkeys() {
-        this.hotkeyList.forEach(
+        $G.hotkeys.list.forEach(
             hotkey => this._loadHotkey(hotkey)
         )
     }
@@ -61,7 +57,7 @@ class HotkeyBar {
     _onHotkeyClicked(ev) {
         const clickedHotkey = ev.delegateTarget;
 
-        console.log(clickedHotkey.dataset.id);
+        $G.emit("HotkeyBar::ClickedHotkey", { id: clickedHotkey.dataset.id });
     }
 
     _setEvents() {
@@ -70,6 +66,8 @@ class HotkeyBar {
         delegate(
             hotkeysSelector, 'click', (ev) => this._onHotkeyClicked(ev)
         );
+
+        $G.listen("Game::LoadHotkeys", () => this._loadHotkeys())
     }
 
     _setup() {
@@ -80,7 +78,6 @@ class HotkeyBar {
         this._setup();
         this._createHotkeyBar();
         this._createHotkeys();
-        this._loadHotkeys();
         this._setEvents();
     }
 

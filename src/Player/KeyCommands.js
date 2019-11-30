@@ -2,22 +2,46 @@ import AbilityManager from '../Ability/AbilityManager';
 
 class KeyCommands {
     create(player) {
-        const spaceKey = player.config.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
-            upKey = player.config.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        this.spaceKey = player.config.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.upKey = player.config.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        this.player = player;
+        this.player.isNotIdleAnimationBlocked = true;
 
-        spaceKey.on('down', 
-            () => player.isNotMoving ? AbilityManager.use({
-                user: player,
-                target: player.config.scene.focusedGameObject,
-                ...player.config.scene.abilities.fireball
-            }): 0
+        this._setEvents();
+    }
+
+    _useAbilityOnFocusedObject() {
+        AbilityManager.use({
+            user: this.player,
+            target: this.player.config.scene.focusedGameObject,
+            ...this.player.abilities.fireball
+        });
+    }
+
+    _useAbilityOnCursorPosition() {
+
+    }
+    
+    _useAbility() {
+        if (this.player.isNotMoving) {
+            const isPlayerFocusedOnObject = this.player.config.scene.focusedGameObject;
+
+            isPlayerFocusedOnObject ? this._useAbilityOnFocusedObject() : this._useAbilityOnCursorPosition();
+        } 
+    }
+
+    _jump() {
+        if (this.player.armatureDisplay.body.touching.down) this.player.jump();
+    }
+
+    _setEvents() {
+        this.spaceKey.on(
+            'down', () => this._useAbility()
         );
 
-        upKey.on('down', 
-            () => player.armatureDisplay.body.touching.down ? player.jump(): 0
-        )
-
-        player.isNotIdleAnimationBlocked = true;
+        this.upKey.on(
+            'down', () => this._jump()
+        );
     }
 
     update(player) {

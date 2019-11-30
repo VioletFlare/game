@@ -14,7 +14,7 @@ class Boot {
                 default: 'arcade',
                 arcade: {
                     gravity: { y: 300 },
-                    debug: true
+                    debug: $G.isDebug
                 }
             },
             scale: {

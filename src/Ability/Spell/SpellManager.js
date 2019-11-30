@@ -15,7 +15,7 @@ class SpellManager {
             projectile = new Projectile(abilityConfig.user, abilityConfig.target, effect),
             animationDuration = this._getAnimationDuration(abilityConfig);
 
-        projectile.launch()
+        projectile.launch();
 
         abilityConfig.user.config.skin.throwSpell(abilityConfig.user.armatureDisplay);
 

@@ -15,6 +15,22 @@ class Temple0 extends BaseScene {
     }
 
     _initCharacters() {
+        //!
+        $G.hotkeys = {
+            list: [
+                {
+                    hotkeyId: 1,
+                    name: 'fireball',
+                    icon: icon,
+                },
+                {
+                    hotkeyId: 2,
+                    name: 'exploding_fireball',
+                    icon: icon
+                }
+            ]
+        }
+
         const config = {
             scale: 0.45,
             scene: this,
@@ -34,18 +50,41 @@ class Temple0 extends BaseScene {
         }
 
         this.ghost = NpcFactory.create(ghostconf);
+
+        this.ghost2 = NpcFactory.create(ghostconf);
+        this.ghost3 = NpcFactory.create(ghostconf);
     }
 
     _preloadCharacters() {
         this.player.preload();
         this.ghost.preload();
+        this.ghost2.preload();
+        this.ghost3.preload();
     }
 
     _setAbilities() {
-        this.player.abilities = [{
-            name: 'fireball',
-            boundKey: Phaser.Input.Keyboard.KeyCodes.ONE
-        }];
+
+        //Phaser.Input.Keyboard.KeyCodes.ONE
+
+        $G.hotkeys = {
+            list: [
+                {
+                    hotkeyId: 1,
+                    referemce: this.abilities.fireball
+                },
+                {
+                    hotkeyId: 2,
+                    name: 'exploding_fireball',
+                    icon: icon
+                }
+            ],
+            maxNumber: 10
+        }
+
+        this.player.abilities['fireball'] = {
+            ...this.abilities.fireball
+        }
+
     }
 
     _createCharacters() {
@@ -54,7 +93,11 @@ class Temple0 extends BaseScene {
         this.player.create(playerSpawn);
         playerSpawn[0].x += 150;
         this.ghost.create(playerSpawn);
-        
+        playerSpawn[0].x += 50;
+        this.ghost2.create(playerSpawn);
+        playerSpawn[0].x += 100;
+        this.ghost3.create(playerSpawn);
+
         this._setAbilities();
     }
 
@@ -81,6 +124,8 @@ class Temple0 extends BaseScene {
         this.physics.world.setBounds(0, 0, 42*32, 32*32);
         this.physics.add.collider(this.player.armatureDisplay, invisibleWalls);
         this.physics.add.collider(this.ghost.armatureDisplay, invisibleWalls);
+        this.physics.add.collider(this.ghost2.armatureDisplay, invisibleWalls);
+        this.physics.add.collider(this.ghost3.armatureDisplay, invisibleWalls);
     }
 
     _createCamera() {

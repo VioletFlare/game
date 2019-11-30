@@ -1,5 +1,6 @@
 import Marker from '../UI/Marker';
 import Fireball from '../Ability/Spell/Fireball';
+import ExplodingFireball from '../Ability/Spell/ExplodingFireball';
 
 class BaseScene extends Phaser.Scene  {
 
@@ -14,6 +15,7 @@ class BaseScene extends Phaser.Scene  {
     _initAbilities() {
         this.abilities = {};
         this.abilities.fireball = new Fireball(this);
+        this.abilities.explodingFireball = new ExplodingFireball(this);
     }
 
     preload() {
