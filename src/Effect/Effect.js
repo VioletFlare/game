@@ -4,7 +4,7 @@ class Effect {
         this.scene = config.scene;
         this.particles = this.scene.add.particles(config.atlasName);
         this.emitter = this.particles.createEmitter(config.emitterConfiguration);
-        this.physicConfiguration = config.physicConfiguration;
+        this.config = config;
     }
 
     _setupContainerPhysics() {
@@ -15,8 +15,8 @@ class Effect {
     }
 
     _setupContainerDimensions() {
-        this.container.body.setSize(this.physicConfiguration.width, this.physicConfiguration.height);
-        this.container.body.offset.set(this.physicConfiguration.offsetX, this.physicConfiguration.offsetY);
+        this.container.body.setSize(this.config.physicConfiguration.width, this.config.physicConfiguration.height);
+        this.container.body.offset.set(this.config.physicConfiguration.offsetX, this.config.physicConfiguration.offsetY);
     }
 
     create(originPos) {
@@ -25,7 +25,7 @@ class Effect {
         this.container.add(this.particles);
         this.container.setPosition(this.originPos.x, this.originPos.y);
 
-        if (this.physicConfiguration) {
+        if (this.config.physicConfiguration) {
             this._setupContainerPhysics();
             this._setupContainerDimensions();
         }

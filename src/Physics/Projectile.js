@@ -9,7 +9,7 @@ class Projectile {
     _initParameters() {
         this.originPos = this.user.getSpellOriginPos();
         this.targetPos = this.target.armatureDisplay.body.center;
-        this.rotation = this.effect.physicConfiguration.rotationOffset + 
+        this.rotation = this.effect.config.physicConfiguration.rotationOffset + 
                         Phaser.Math.Angle.Between(this.originPos.x, this.originPos.y, this.targetPos.x, this.targetPos.y);
     }
 
@@ -18,14 +18,16 @@ class Projectile {
         this.effect.container.setRotation(this.rotation);
     }
 
+    _onProjectileHitTarget() {
+        this.target.applyEffect(this.user, this.effect);
+        this.effect.container.destroy();
+    }
+
     _setOverlapTarget() {
         this.effect.scene.physics.add.overlap(
             this.target.armatureDisplay, 
             this.effect.container, 
-            () => { 
-                console.log("Projectile Hit!"); 
-                this.effect.container.destroy();
-            }, 
+            () => this._onProjectileHitTarget(), 
             null, 
             this.effect.scene
         );
@@ -37,9 +39,9 @@ class Projectile {
                 this._initParameters();
                 this._setupEffect();
                 this._setOverlapTarget();
-                this.effect.scene.physics.moveToObject(this.effect.container, this.targetPos, this.effect.physicConfiguration.speed)
+                this.effect.scene.physics.moveToObject(this.effect.container, this.targetPos, this.effect.config.physicConfiguration.speed)
             },
-            this.effect.physicConfiguration.launchTimeOffset
+            this.effect.config.physicConfiguration.launchTimeOffset
         );
     }
 

@@ -1,8 +1,9 @@
 import ArmatureFactory from '../Armature/ArmatureFactory'
 
-class GameObject {
+class GameObject extends Phaser.GameObjects.GameObject {
 
     constructor(config) {
+        super(config.scene);
         this.config = config;
     }
 
