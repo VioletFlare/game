@@ -1,11 +1,11 @@
-import icon from '../../assets/icon/fireball_icon.png';
 import delegate from 'delegate';
 
 class HotkeyBar {
 
     constructor() {
         $G.hotkeys = {}
-        $G.hotkeys.maxNumber = 10;
+
+        this.maxKeysInNumberRow = 10;
     }
 
     _createHotkeyBar() {
@@ -22,7 +22,7 @@ class HotkeyBar {
 
     _createHotkey(hotkeyId) {
         const hotkey = document.createElement('li'),
-            isTenthHotkey = hotkeyId === $G.hotkeys.maxNumber;
+            isTenthHotkey = hotkeyId === this.maxKeysInNumberRow ;
 
         if (isTenthHotkey) {
             hotkey.dataset.id = 0;
@@ -34,22 +34,41 @@ class HotkeyBar {
     }
 
     _createHotkeys() {
-        for (let hotkeyId = 1; hotkeyId <= $G.hotkeys.maxNumber; hotkeyId++) {
+        for (let hotkeyId = 1; hotkeyId <= this.maxKeysInNumberRow; hotkeyId++) {
             this._createHotkey(hotkeyId);
         }
     }
 
-    _loadHotkey(hotkey) {
-        const currentHotkeySelector = `li[data-id='${hotkey.hotkeyId}']`,
-            currentHotkey = this.hotkeyBar.querySelector(currentHotkeySelector),
-            hotkeyIconUrl = `url(${hotkey.icon})`;
+    _isHotkeyValueValid(value) {
+        const isHotkeyValueValid = 
+            typeof value === 'object' && 
+            value !== null &&
+            Object.keys(value).length;
 
-        currentHotkey.title = hotkey.name;
+        return isHotkeyValueValid;
+    }
+
+    _loadHotkeyIntoDom(key, value) {
+        const currentHotkeySelector = `li[data-id='${key}']`,
+            currentHotkey = this.hotkeyBar.querySelector(currentHotkeySelector),
+            hotkeyIconUrl = `url(${value.icon})`;
+
+        currentHotkey.title = value.name;
         currentHotkey.style.setProperty('--hotkey-icon-bg-img', hotkeyIconUrl);
     }
 
+    _loadHotkey(hotkey) {
+        const key = hotkey[0],
+            value = hotkey[1],
+            isHotkeyValueValid = this._isHotkeyValueValid(value);
+
+        if (isHotkeyValueValid) this._loadHotkeyIntoDom(key, value)
+    }
+
     _loadHotkeys() {
-        $G.hotkeys.list.forEach(
+        const keys = Object.entries($G.hotkeys.keys);
+
+        keys.forEach(
             hotkey => this._loadHotkey(hotkey)
         )
     }
@@ -61,17 +80,18 @@ class HotkeyBar {
     }
 
     _setEvents() {
-        const hotkeysSelector = '.hotkeyBar li';
-
         delegate(
-            hotkeysSelector, 'click', (ev) => this._onHotkeyClicked(ev)
+            this.hotkeysSelector, 'click', (ev) => this._onHotkeyClicked(ev)
         );
 
-        $G.listen("Game::LoadHotkeys", () => this._loadHotkeys())
+        $G.listen(
+            "Game::LoadHotkeys", () => this._loadHotkeys()
+        );
     }
 
     _setup() {
         this.uiLayer = document.querySelector('.uiLayer');
+        this.hotkeysSelector = '.hotkeyBar li';
     }
 
     create() {

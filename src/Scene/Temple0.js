@@ -17,18 +17,11 @@ class Temple0 extends BaseScene {
     _initCharacters() {
         //!
         $G.hotkeys = {
-            list: [
-                {
-                    hotkeyId: 1,
-                    name: 'fireball',
-                    icon: icon,
-                },
-                {
-                    hotkeyId: 2,
-                    name: 'exploding_fireball',
-                    icon: icon
-                }
-            ]
+            keys: {
+                '1': this.abilities.fireball,
+                '2': this.abilities.explodingFireball,
+                'F4': {}
+            }
         }
 
         const config = {
@@ -66,24 +59,7 @@ class Temple0 extends BaseScene {
 
         //Phaser.Input.Keyboard.KeyCodes.ONE
 
-        $G.hotkeys = {
-            list: [
-                {
-                    hotkeyId: 1,
-                    referemce: this.abilities.fireball
-                },
-                {
-                    hotkeyId: 2,
-                    name: 'exploding_fireball',
-                    icon: icon
-                }
-            ],
-            maxNumber: 10
-        }
-
-        this.player.abilities['fireball'] = {
-            ...this.abilities.fireball
-        }
+        this.player.abilities['fireball'] = this.abilities.fireball;
 
     }
 
@@ -139,6 +115,8 @@ class Temple0 extends BaseScene {
         this._initCharacters();
         this._preloadCharacters();
         this._preloadMap();
+
+        $G.emit("Game::LoadHotkeys");
     }
 
     create() {

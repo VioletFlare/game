@@ -1,3 +1,4 @@
+import './GlobalObject';
 import Temple0 from '../Scene/Temple0';
 import UI from '../UI/UI';
 

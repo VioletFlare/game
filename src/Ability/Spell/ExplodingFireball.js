@@ -12,15 +12,15 @@ class ExplodingFireball {
             speedX: { min: 50, max: 120 },
             quantity: 1,
             gravityY: 0,
-            scale: { start: 0.3, end: 0.1, ease: 'Power3' },
+            scale: { start: 0.4, end: 0.2, ease: 'Power3' },
             blendMode: 'ADD',
             on: false
         };
         this.physicConfiguration = {
-            width: 20,
-            height: 20,
-            offsetX: -10,
-            offsetY: -8,
+            width: 25,
+            height: 25,
+            offsetX: -14,
+            offsetY: -14,
             rotationOffset: 2.9,
             speed: 150,
             launchTimeOffset: 50,
