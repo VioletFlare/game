@@ -8,7 +8,7 @@ class HotkeyBar {
         this.maxKeysInNumberRow = 10;
     }
 
-    _createHotkeyBar() {
+    _createHotkeyBarDOM() {
         this.hotkeyBarContainer = document.createElement('div');
         this.hotkeyBar = document.createElement('ul');
 
@@ -20,7 +20,7 @@ class HotkeyBar {
         this.uiLayer.append(this.hotkeyBarContainer);
     }
 
-    _createHotkey(hotkeyId) {
+    _createHotkeyListItemDOM(hotkeyId) {
         const hotkey = document.createElement('li'),
             isTenthHotkey = hotkeyId === this.maxKeysInNumberRow ;
 
@@ -33,9 +33,9 @@ class HotkeyBar {
         this.hotkeyBar.append(hotkey);
     }
 
-    _createHotkeys() {
+    _createHotkeyListInnerDOM() {
         for (let hotkeyId = 1; hotkeyId <= this.maxKeysInNumberRow; hotkeyId++) {
-            this._createHotkey(hotkeyId);
+            this._createHotkeyListItemDOM(hotkeyId);
         }
     }
 
@@ -48,7 +48,7 @@ class HotkeyBar {
         return isHotkeyValueValid;
     }
 
-    _loadHotkeyIntoDom(key, value) {
+    _loadHotkeyIntoDOM(key, value) {
         const currentHotkeySelector = `li[data-id='${key}']`,
             currentHotkey = this.hotkeyBar.querySelector(currentHotkeySelector),
             hotkeyIconUrl = `url(${value.icon})`;
@@ -62,7 +62,7 @@ class HotkeyBar {
             value = hotkey[1],
             isHotkeyValueValid = this._isHotkeyValueValid(value);
 
-        if (isHotkeyValueValid) this._loadHotkeyIntoDom(key, value)
+        if (isHotkeyValueValid) this._loadHotkeyIntoDOM(key, value)
     }
 
     _loadHotkeys() {
@@ -96,8 +96,8 @@ class HotkeyBar {
 
     create() {
         this._setup();
-        this._createHotkeyBar();
-        this._createHotkeys();
+        this._createHotkeyBarDOM();
+        this._createHotkeyListInnerDOM();
         this._setEvents();
     }
 
