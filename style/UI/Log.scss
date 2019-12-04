@@ -1,0 +1,24 @@
+@mixin transparent-background($r, $g, $b) {
+    background: rgba($r, $g, $b, 0.5);
+}
+
+.log {
+    height: 128px;
+    width: 400px;
+    margin-block-end: 0;
+    margin-block-start: 0;
+    padding-inline-start: 0;
+    bottom: 5px;
+    left: 5px;
+    position: fixed;
+
+
+    @include transparent-background(0, 0, 0);
+
+    li {
+        padding-left: 2px;
+        padding-top: 2px;
+        color: white;
+        font-size: 13px;
+    }
+}

@@ -1,6 +1,7 @@
 import DraggableManager from './DraggableManager';
 import HotkeyBar from './HotkeyBar';
 import AbilityBook from './AbilityBook';
+import Log from './Log';
 
 class UI {
 
@@ -16,9 +17,11 @@ class UI {
 
     create() {
         this._createUILayer();
+        
         HotkeyBar.create();
         AbilityBook.create();
         DraggableManager.create();
+        Log.create();
     }
 }
 
