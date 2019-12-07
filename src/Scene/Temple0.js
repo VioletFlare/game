@@ -26,6 +26,7 @@ class Temple0 extends BaseScene {
 
         const config = {
             scale: 0.45,
+            name: 'Player',
             scene: this,
             runVelocity: 160,
             jumpVelocity: 280,
@@ -36,6 +37,7 @@ class Temple0 extends BaseScene {
 
         const ghostconf = {
             scale: 0.32,
+            name: 'Ghost',
             scene: this,
             runVelocity: 160,
             jumpVelocity: 280,
