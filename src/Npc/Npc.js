@@ -11,10 +11,6 @@ class Npc extends GameObject {
         super.preload();
     }
 
-    applyEffect(user, effect) {
-        console.log(user, ' applied ', effect, ' on ', this);
-    }
-
     create(playerSpawn) {
         super.create(playerSpawn);
         this.config.skin.create(this.armatureDisplay);

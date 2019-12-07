@@ -98,6 +98,64 @@
                  "width":0,
                  "x":192,
                  "y":640
+                }, 
+                {
+                 "height":104,
+                 "id":38,
+                 "name":"door_0",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":77.3333333333335,
+                 "x":1258.66666666667,
+                 "y":896.666666666667
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":6,
+         "name":"npc",
+         "objects":[
+                {
+                 "height":0,
+                 "id":35,
+                 "name":"ghost_spawn_0",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":544,
+                 "y":642.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":36,
+                 "name":"ghost_spawn_1",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":414.666666666667,
+                 "y":949.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":37,
+                 "name":"ghost_spawn_2",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":864.666666666667,
+                 "y":946.666666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -105,8 +163,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":5,
- "nextobjectid":35,
+ "nextlayerid":9,
+ "nextobjectid":40,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2018.09.12",
@@ -115,7 +173,7 @@
         {
          "columns":8,
          "firstgid":1,
-         "image":"..\/images\/dark_tiles.png",
+         "image":"..\/tiles\/dark_tiles.png",
          "imageheight":199,
          "imagewidth":265,
          "margin":1,

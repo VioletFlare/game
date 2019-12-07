@@ -29,8 +29,18 @@ class Log {
         this._printMessage("Welcome back!")
     }
 
+    _setEvents() {
+        $G.listen("GameObject::appliedEffect", (data) => {
+            const message = `${data.user.config.name} applied effect ${data.effect.config.name} on ${data.target.config.name}.`
+
+            this._printMessage(message);
+        })
+    }
+
     _setup() {
         this.uiLayer = document.querySelector('.uiLayer');
+
+        this._setEvents();
     }
 
     create() {

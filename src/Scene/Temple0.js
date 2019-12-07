@@ -1,6 +1,6 @@
 import Utils from '../Misc/Utils';
-import dark_tiles from '../../assets/images/dark_tiles.png';
-import temple0 from '../../assets/maps/temple0';
+import dark_tiles from '../../assets/tiles/dark_tiles.png';
+import temple0_map from '../../assets/maps/temple0';
 import InvisibleWalls from '../Physics/InvisibleWalls';
 import PlayerFactory from '../Player/PlayerFactory';
 import NpcFactory from '../Npc/NpcFactory';
@@ -26,24 +26,24 @@ class Temple0 extends BaseScene {
 
         const config = {
             scale: 0.45,
+            name: 'Player',
             scene: this,
             runVelocity: 160,
             jumpVelocity: 280,
             skin: Girl
         }
 
-        this.player = PlayerFactory.create(config);
-
         const ghostconf = {
             scale: 0.32,
+            name: 'Ghost',
             scene: this,
             runVelocity: 160,
             jumpVelocity: 280,
             skin: Ghost
         }
 
+        this.player = PlayerFactory.create(config);
         this.ghost = NpcFactory.create(ghostconf);
-
         this.ghost2 = NpcFactory.create(ghostconf);
         this.ghost3 = NpcFactory.create(ghostconf);
     }
@@ -56,23 +56,22 @@ class Temple0 extends BaseScene {
     }
 
     _setAbilities() {
-
-        //Phaser.Input.Keyboard.KeyCodes.ONE
-
         this.player.abilities['fireball'] = this.abilities.fireball;
 
     }
 
     _createCharacters() {
-        let playerLayer = Utils.findObjectLayerByName(this.map, 'player');
-        let playerSpawn = Utils.findObjectsByName(playerLayer, 'player_spawn');
+        const playerLayer = Utils.findObjectLayerByName(this.map, 'player'),
+            npcLayer = Utils.findObjectLayerByName(this.map, 'npc'),
+            playerSpawn = Utils.findObjectsByName(playerLayer, 'player_spawn'),
+            ghostSpawn0 = Utils.findObjectsByName(npcLayer, 'ghost_spawn_0'),
+            ghostSpawn1 = Utils.findObjectsByName(npcLayer, 'ghost_spawn_1'),
+            ghostSpawn2 = Utils.findObjectsByName(npcLayer, 'ghost_spawn_2');
+
         this.player.create(playerSpawn);
-        playerSpawn[0].x += 150;
-        this.ghost.create(playerSpawn);
-        playerSpawn[0].x += 50;
-        this.ghost2.create(playerSpawn);
-        playerSpawn[0].x += 100;
-        this.ghost3.create(playerSpawn);
+        this.ghost.create(ghostSpawn0);
+        this.ghost2.create(ghostSpawn1);
+        this.ghost3.create(ghostSpawn2);
 
         this._setAbilities();
     }
@@ -83,7 +82,7 @@ class Temple0 extends BaseScene {
 
     _preloadMap() {
         this.load.image('dark_tiles', dark_tiles);
-        this.load.tilemapTiledJSON('temple0', temple0);
+        this.load.tilemapTiledJSON('temple0', temple0_map);
     }
 
     _createMap() {

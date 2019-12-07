@@ -48,6 +48,14 @@ class GameObject extends Phaser.GameObjects.GameObject {
         this.armatureDisplay = this.config.scene.physics.add.existing(armatureDisplay);
     }
 
+    applyEffect(user, effect) {
+        $G.emit("GameObject::appliedEffect", {
+            user: user, 
+            effect: effect, 
+            target: this
+        })
+    }
+
     preload() {
         this.armature = ArmatureFactory.create(this.config);
         this.armature.preload();
