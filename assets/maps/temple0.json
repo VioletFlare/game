@@ -100,15 +100,49 @@
                  "y":640
                 }, 
                 {
-                 "height":104,
-                 "id":38,
-                 "name":"door_0",
+                 "height":0,
+                 "id":40,
+                 "name":"player_spawn_0",
+                 "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":77.3333333333335,
-                 "x":1258.66666666667,
-                 "y":896.666666666667
+                 "width":0,
+                 "x":1235.33333333333,
+                 "y":939.333333333333
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":9,
+         "name":"passage",
+         "objects":[
+                {
+                 "height":122.667,
+                 "id":41,
+                 "name":"passage_0",
+                 "properties":[
+                        {
+                         "name":"map",
+                         "type":"string",
+                         "value":"temple1"
+                        }, 
+                        {
+                         "name":"spawn",
+                         "type":"string",
+                         "value":"player_spawn_0"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":62,
+                 "x":1303,
+                 "y":901.999833333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -163,8 +197,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":40,
+ "nextlayerid":10,
+ "nextobjectid":42,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2018.09.12",
