@@ -4,9 +4,20 @@
   "description": "",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watchAll",
+    "test-clear-cache": "jest --clearCache",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "src",
+      "tests"
+    ],
+    "moduleFileExtensions": [
+      "js"
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +27,7 @@
     "css-loader": "^3.2.0",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^24.9.0",
     "node-sass": "^4.13.0",
     "raw-loader": "^0.5.1",
     "sass-loader": "^8.0.0",
