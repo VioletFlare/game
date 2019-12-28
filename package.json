@@ -5,23 +5,14 @@
   "private": true,
   "scripts": {
     "test": "jest --watchAll",
-    "test-clear-cache": "jest --clearCache",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
-  },
-  "jest": {
-    "moduleDirectories": [
-      "node_modules",
-      "src",
-      "tests"
-    ],
-    "moduleFileExtensions": [
-      "js"
-    ]
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/preset-env": "^7.7.7",
+    "babel-jest": "^24.9.0",
     "babel-minify-webpack-plugin": "^0.3.1",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^3.2.0",
