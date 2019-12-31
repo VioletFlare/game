@@ -1,9 +1,11 @@
 class InvisibleWalls {
 
     _calculatePosition(object) {
+        const isPolylineWidthNegative = object.polyline[1].x < 0,
+            isPolylineHeightNegative = object.polyline[1].y < 0;
+
         let position;
-        let isPolylineWidthNegative = object.polyline[1].x < 0;
-        let isPolylineHeightNegative = object.polyline[1].y < 0;
+
 
         if (isPolylineWidthNegative) {
             position = [
