@@ -23,5 +23,5 @@ Tests
 Running tests:
 
 ```
-$ npm run tests
+$ npm run test
 ```
