@@ -28,14 +28,16 @@ class InvisibleWalls {
     }
 
     _calculateDimension(object, width = 5, height = 5) {
-        let isPolyLineHorizontal = object.polyline[0].y === object.polyline[1].y;
+        const isPolyLineHorizontal = object.polyline[0].y === object.polyline[1].y;
 
         isPolyLineHorizontal ? 
             width = (object.x + object.polyline[1].x) - (object.x + object.polyline[0].x)
         : 
             height = (object.y + object.polyline[1].y) - (object.y + object.polyline[0].y);
 
-        return [Math.abs(width), Math.abs(height)];
+        const dimension = [Math.abs(width), Math.abs(height)];
+
+        return dimension;
     }
 
     _createWall(object) {

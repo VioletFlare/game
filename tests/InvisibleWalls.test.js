@@ -66,7 +66,39 @@ const checkDownToTop = () => {
     expect(position).toEqual([288, 480]);
 }
 
+const checkHorizontalDimension = () => {
+    const fakeTiledPolygonObject = new FakeTiledPolygonObject(),
+    leftToRightPolyline = [
+        { x: 16, y: 0 },
+        { x: 846.667, y: 0 }
+    ];
+
+    fakeTiledPolygonObject.setPolyline(leftToRightPolyline);
+    fakeTiledPolygonObject.setObjectPosition(129, 694);
+
+    const dimension = InvisibleWalls._calculateDimension(fakeTiledPolygonObject);
+
+    expect(dimension).toEqual([830.667, 5]);
+}
+
+const checkVerticalDimension = () => {
+    const fakeTiledPolygonObject = new FakeTiledPolygonObject(),
+    rightToLeftPolyline = [
+        {x: 0, y: 0},
+        {x: 0, y: 224}
+    ];
+
+    fakeTiledPolygonObject.setPolyline(rightToLeftPolyline);
+    fakeTiledPolygonObject.setObjectPosition(384, 416);
+
+    const dimension = InvisibleWalls._calculateDimension(fakeTiledPolygonObject);
+    
+    expect(dimension).toEqual([5, 224]);
+}
+
 test('Check polyline drawn from left to right.', checkLeftToRight);
 test('Check polyline drawn from right to left.', checkRightToLeft);
 test('Check polyline drawn from top to down.', checkTopToDown);
 test('Check polyline drawn from down to top.', checkDownToTop);
+test('Check horizontal dimension is calculated corectly.', checkHorizontalDimension);
+test('Check vertical dimension is calculated correctly.', checkVerticalDimension)
