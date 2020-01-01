@@ -26,31 +26,38 @@ class DraggableManager {
       document.onmouseup = () => this._unsetDraggingEvents();
     }
 
-    _startDragging(ev) {
+    _setCurrentTarget(ev) {
       this.currentTarget = ev.delegateTarget;
+    }
+
+    _startDragging(ev) {
+      this._setCurrentTarget(ev);
       this._setCurrentCursorPosition(ev);
       this._setDraggingEvents();
     }
 
     _calculateDraggableElementPosition(ev) {
       const cursorDifferenceX = this.currentCursorPosition.x - ev.clientX,
-        cursorDifferenceY = this.currentCursorPosition.y - ev.clientY;
+        cursorDifferenceY = this.currentCursorPosition.y - ev.clientY,
+        position = {
+          draggableElementLeftOffset: this.currentTarget.offsetLeft - cursorDifferenceX,
+          draggableElementTopOffset: this.currentTarget.offsetTop - cursorDifferenceY
+        }
 
-      this.draggableElementLeftOffset = this.currentTarget.offsetLeft - cursorDifferenceX;
-      this.draggableElementTopOffset = this.currentTarget.offsetTop - cursorDifferenceY;
+      return position;
     }
 
-    _setDraggableElementPosition() {
-      const draggableElementTopOffsetPx = `${this.draggableElementTopOffset}px`,
-        draggableElementLeftOffsetPx = `${this.draggableElementLeftOffset}px`;
+    _setDraggableElementPosition(position) {
+      const draggableElementTopOffsetPx = `${position.draggableElementTopOffset}px`,
+        draggableElementLeftOffsetPx = `${position.draggableElementLeftOffset}px`;
 
       this.currentTarget.style.setProperty('--draggable-element-top-px', draggableElementTopOffsetPx);
       this.currentTarget.style.setProperty('--draggable-element-left-px', draggableElementLeftOffsetPx);
     }
 
     _dragElement(ev) {
-      this._calculateDraggableElementPosition(ev);
-      this._setDraggableElementPosition();
+      const position = this._calculateDraggableElementPosition(ev);
+      this._setDraggableElementPosition(position);
       this._setCurrentCursorPosition(ev);
     }
 
@@ -66,4 +73,4 @@ class DraggableManager {
 
 }
 
-export default new DraggableManager();
+export default DraggableManager;

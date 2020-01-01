@@ -17,10 +17,12 @@ class UI {
 
     create() {
         this._createUILayer();
+
+        const draggableManager = new DraggableManager();
         
         HotkeyBar.create();
         AbilityBook.create();
-        DraggableManager.create();
+        draggableManager.create();
         Log.create();
     }
 }
