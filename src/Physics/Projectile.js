@@ -21,6 +21,8 @@ class Projectile {
     _onProjectileHitTarget() {
         this.target.applyEffect(this.user, this.effect);
         this.effect.container.destroy();
+
+        
     }
 
     _setOverlapTarget() {
