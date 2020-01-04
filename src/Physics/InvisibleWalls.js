@@ -41,12 +41,11 @@ class InvisibleWalls {
     }
 
     _createWall(object) {
-        let position = this._calculatePosition(object);
-        let dimension = this._calculateDimension(object);
+        const position = this._calculatePosition(object),
+            dimension = this._calculateDimension(object),
+            wall = this.invisibleWalls.create(...position).setOrigin(0, 0);
 
-        let wall = this.invisibleWalls.create(...position).setOrigin(0, 0);
         wall.setDisplaySize(...dimension);
-
         wall.refreshBody();
     }
 
