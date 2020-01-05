@@ -9,8 +9,19 @@ class Projectile {
     _initParameters() {
         this.originPos = this.user.getSpellOriginPos();
         this.targetPos = this.target.armatureDisplay.body.center;
-        this.rotation = this.effect.config.physicConfiguration.rotationOffset + 
-                        Phaser.Math.Angle.Between(this.originPos.x, this.originPos.y, this.targetPos.x, this.targetPos.y);
+        this.rotation = this._calculateProjectileRotation();
+    }
+
+    _calculateProjectileRotation() {
+        const angleBetweenOriginAndTarget = Phaser.Math.Angle.Between(
+            this.originPos.x, 
+            this.originPos.y, 
+            this.targetPos.x, 
+            this.targetPos.y
+        ),
+        rotation = this.effect.config.physicConfiguration.rotationOffset + angleBetweenOriginAndTarget;
+
+        return rotation;
     }
 
     _setupEffect() {
@@ -18,11 +29,16 @@ class Projectile {
         this.effect.container.setRotation(this.rotation);
     }
 
+    _handlePostImpactEffect() {
+        /*const isExplosive = 
+
+        if ()*/
+    }
+
     _onProjectileHitTarget() {
         this.target.applyEffect(this.user, this.effect);
-        this.effect.container.destroy();
 
-        
+        this.effect.container.destroy();
     }
 
     _setOverlapTarget() {
@@ -35,14 +51,16 @@ class Projectile {
         );
     }
 
+    _onReadyToLaunch() {
+        this._initParameters();
+        this._setupEffect();
+        this._setOverlapTarget();
+        this.effect.scene.physics.moveToObject(this.effect.container, this.targetPos, this.effect.config.physicConfiguration.speed)
+    }
+
     launch() {
         setTimeout(
-            () => {
-                this._initParameters();
-                this._setupEffect();
-                this._setOverlapTarget();
-                this.effect.scene.physics.moveToObject(this.effect.container, this.targetPos, this.effect.config.physicConfiguration.speed)
-            },
+            () => this._onReadyToLaunch(),
             this.effect.config.physicConfiguration.launchTimeOffset
         );
     }
