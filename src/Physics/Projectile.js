@@ -12,14 +12,20 @@ class Projectile {
         this.rotation = this._calculateProjectileRotation();
     }
 
-    _calculateProjectileRotation() {
+    _calculateAngleBetweenOriginAndTarget() {
         const angleBetweenOriginAndTarget = Phaser.Math.Angle.Between(
             this.originPos.x, 
             this.originPos.y, 
             this.targetPos.x, 
             this.targetPos.y
-        ),
-        rotation = this.effect.config.physicConfiguration.rotationOffset + angleBetweenOriginAndTarget;
+        )
+
+        return angleBetweenOriginAndTarget;
+    }
+
+    _calculateProjectileRotation() {
+        const angleBetweenOriginAndTarget = this._calculateAngleBetweenOriginAndTarget(),
+            rotation = this.effect.config.physicConfiguration.rotationOffset + angleBetweenOriginAndTarget;
 
         return rotation;
     }

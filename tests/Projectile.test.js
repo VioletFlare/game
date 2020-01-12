@@ -29,3 +29,40 @@ Example of an explosive projectile:
     An Explosive Fireball will create an Explosion Object upon impacting a target, 
     the Explosion then will affect multiple npcs and/or objects.
 */
+
+import Projectile from '../src/Physics/Projectile';
+
+const _calculateAngleBetweenOriginAndTargetMock = () => {
+    return 0.1086859124541331;
+}
+
+const checkProjectileRotation = () => {
+    const projectile = new Projectile(null, null, null),
+        effect = {
+            config: {
+                physicConfiguration: {
+                    rotationOffset: 2.9
+                }
+            } 
+        }
+
+    projectile.effect = effect;
+
+    projectile.originPos = {
+        x: 230.17583999305882,
+        y: 616.1586912200304
+    }
+
+    projectile.targetPos = {
+        x: 543.28,
+        y: 650.3233333333334
+    }
+
+    projectile._calculateAngleBetweenOriginAndTarget = _calculateAngleBetweenOriginAndTargetMock;
+
+    const rotation = projectile._calculateProjectileRotation();
+
+    expect(rotation).toBe(3.008685912454133)
+}
+
+test('Given projectile origin x, y, target x, y and rotationOffset return projectile rotation.', () => checkProjectileRotation())
