@@ -1,30 +1,25 @@
 class Explosion {
 
-    constructor() {
-        this.position = {
-            x: 0,
-            y: 0
-        }
-    }
-
-    create(scene, position, size) {
-        this.explosionArea = scene.add.zone(
+    create(position, effect) {
+        this.explosionArea = effect.scene.add.zone(
             position.x, 
             position.y,
-            size.width,
-            size.height
+            effect.config.physicConfiguration.explosionWidth,
+            effect.config.physicConfiguration.explosionHeight
         );
 
-        scene.physics.world.enable(this.explosionArea, 0);
+        effect.scene.physics.world.enable(this.explosionArea, 0);
 
-        this.explosionArea.setAllowGravity(false);
-        this.explosionArea.moves = false;
+        //this.explosionArea.setAllowGravity(false);
+        //this.explosionArea.moves = false;
     }
 
     _setEvents() {
         this.explosionArea.on('enterzone', () => {
-            
+            console.log("test");
         })
     }
 
 }
+
+export default Explosion;

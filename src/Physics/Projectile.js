@@ -1,3 +1,5 @@
+import Explosion from './Explosion';
+
 class Projectile {
 
     constructor(user, target, effect) {
@@ -35,16 +37,26 @@ class Projectile {
         this.effect.container.setRotation(this.rotation);
     }
 
-    _handlePostImpactEffect() {
-        /*const isExplosive = 
+    _createExplosion() {
+        const explosion = new Explosion(),
+            currentTargetPosition = this.target.armatureDisplay.body.center;
 
-        if ()*/
+
+        explosion.create(currentTargetPosition, this.effect);        
+    }
+
+    _handlePostImpactEffect() {
+        if (this.effect.config.isAoE) {
+            this._createExplosion();
+        }
     }
 
     _onProjectileHitTarget() {
         this.target.applyEffect(this.user, this.effect);
 
         this.effect.container.destroy();
+
+        this._handlePostImpactEffect();
     }
 
     _setOverlapTarget() {
