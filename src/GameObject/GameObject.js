@@ -1,10 +1,12 @@
-import ArmatureFactory from '../Armature/ArmatureFactory'
+import ArmatureFactory from '../Armature/ArmatureFactory';
+import EffectManager from './EffectManager';
 
 class GameObject extends Phaser.GameObjects.GameObject {
 
     constructor(config) {
         super(config.scene);
         this.config = config;
+        this.effectManager = new EffectManager(this);
     }
 
     _calculateDimensions() {
@@ -33,6 +35,9 @@ class GameObject extends Phaser.GameObjects.GameObject {
         this.armatureDisplay.y = spawnPoint[0].y;
     }
 
+    applyEffect(user, effect) {
+        this.effectManager.applyEffect(user, effect)
+    }
 
     _focusObject(pointer, x, y, ev) {
         this.config.scene.marker.set(this);
@@ -46,14 +51,6 @@ class GameObject extends Phaser.GameObjects.GameObject {
     _createArmatureDisplay() {
         const armatureDisplay = this.armature.create();
         this.armatureDisplay = this.config.scene.physics.add.existing(armatureDisplay);
-    }
-
-    applyEffect(user, effect) {
-        $G.emit("GameObject::appliedEffect", {
-            user: user, 
-            effect: effect, 
-            target: this
-        })
     }
 
     preload() {

@@ -30,7 +30,7 @@ class Log {
     }
 
     _setEvents() {
-        $G.listen("GameObject::appliedEffect", (data) => {
+        $G.listen("EffectManager::appliedEffect", (data) => {
             const message = `${data.user.config.name} applied effect ${data.effect.config.name} on ${data.target.config.name}.`
 
             this._printMessage(message);

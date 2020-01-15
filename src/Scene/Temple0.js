@@ -14,8 +14,7 @@ class Temple0 extends BaseScene {
         super('Game');
     }
 
-    _initCharacters() {
-        //!
+    _initHotkeys() {
         $G.hotkeys = {
             keys: {
                 '1': this.abilities.fireball,
@@ -23,7 +22,9 @@ class Temple0 extends BaseScene {
                 'F4': {}
             }
         }
+    }
 
+    _initCharacters() {
         const config = {
             scale: 0.45,
             name: 'Player',
@@ -42,22 +43,23 @@ class Temple0 extends BaseScene {
             skin: Ghost
         }
 
-        this.player = PlayerFactory.create(config);
-        this.ghost = NpcFactory.create(ghostconf);
-        this.ghost2 = NpcFactory.create(ghostconf);
-        this.ghost3 = NpcFactory.create(ghostconf);
+        this.characters = {};
+
+        this.characters.player = PlayerFactory.create(config);
+        this.characters.ghost = NpcFactory.create(ghostconf);
+        this.characters.ghost2 = NpcFactory.create(ghostconf);
+        this.characters.ghost3 = NpcFactory.create(ghostconf);
     }
 
     _preloadCharacters() {
-        this.player.preload();
-        this.ghost.preload();
-        this.ghost2.preload();
-        this.ghost3.preload();
+        this.characters.player.preload();
+        this.characters.ghost.preload();
+        this.characters.ghost2.preload();
+        this.characters.ghost3.preload();
     }
 
     _setAbilities() {
-        this.player.abilities['fireball'] = this.abilities.fireball;
-
+        this.characters.player.abilities['fireball'] = this.abilities.fireball;
     }
 
     _createCharacters() {
@@ -68,16 +70,16 @@ class Temple0 extends BaseScene {
             ghostSpawn1 = Utils.findObjectsByName(npcLayer, 'ghost_spawn_1'),
             ghostSpawn2 = Utils.findObjectsByName(npcLayer, 'ghost_spawn_2');
 
-        this.player.create(playerSpawn);
-        this.ghost.create(ghostSpawn0);
-        this.ghost2.create(ghostSpawn1);
-        this.ghost3.create(ghostSpawn2);
+        this.characters.player.create(playerSpawn);
+        this.characters.ghost.create(ghostSpawn0);
+        this.characters.ghost2.create(ghostSpawn1);
+        this.characters.ghost3.create(ghostSpawn2);
 
         this._setAbilities();
     }
 
     _updateCharacters() {
-        this.player.update();
+        this.characters.player.update();
     }
 
     _preloadMap() {
@@ -97,20 +99,21 @@ class Temple0 extends BaseScene {
         let invisibleWalls = InvisibleWalls.create(this, collisionLayer);
         
         this.physics.world.setBounds(0, 0, 42*32, 32*32);
-        this.physics.add.collider(this.player.armatureDisplay, invisibleWalls);
-        this.physics.add.collider(this.ghost.armatureDisplay, invisibleWalls);
-        this.physics.add.collider(this.ghost2.armatureDisplay, invisibleWalls);
-        this.physics.add.collider(this.ghost3.armatureDisplay, invisibleWalls);
+        this.physics.add.collider(this.characters.player.armatureDisplay, invisibleWalls);
+        this.physics.add.collider(this.characters.ghost.armatureDisplay, invisibleWalls);
+        this.physics.add.collider(this.characters.ghost2.armatureDisplay, invisibleWalls);
+        this.physics.add.collider(this.characters.ghost3.armatureDisplay, invisibleWalls);
     }
 
     _createCamera() {
         this.cameras.main.setBounds(0, 0, 42*32, 32*32);
         this.cameras.main.zoom = 2;
-        this.cameras.main.startFollow(this.player.armatureDisplay, true, 0.08, 0.08);
+        this.cameras.main.startFollow(this.characters.player.armatureDisplay, true, 0.08, 0.08);
     }
 
     preload() {
         super.preload();
+        this._initHotkeys();
         this._initCharacters();
         this._preloadCharacters();
         this._preloadMap();
