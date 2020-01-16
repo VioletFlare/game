@@ -21,13 +21,6 @@ Example:
 
 * Note as mentioning above Effect handles the appearance but it doesn't describe it. 
   Effect's only responsibility is to render the appearance not to describe it.
-
-An explosive projectile explodes, creating an Explosion object as it reaches it's target.
-
-Example of an explosive projectile:
-    An AoE spell which effect affects multiple npcs and/or objects. 
-    An Explosive Fireball will create an Explosion Object upon impacting a target, 
-    the Explosion then will affect multiple npcs and/or objects.
 */
 
 import Projectile from '../src/Physics/Projectile';
