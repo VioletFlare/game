@@ -12,8 +12,8 @@ class Explosion {
         this.explosionZone = this.effect.scene.add.zone(
             this.position.x, 
             this.position.y,
-            this.effect.config.physicConfiguration.explosionWidth,
-            this.effect.config.physicConfiguration.explosionHeight
+            this.effect.config.physicConfiguration.explosion.width,
+            this.effect.config.physicConfiguration.explosion.height
         );
     }
 

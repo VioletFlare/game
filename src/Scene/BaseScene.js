@@ -1,6 +1,6 @@
 import Marker from '../UI/Marker';
-import Fireball from '../Ability/Spell/Fireball';
-import ExplodingFireball from '../Ability/Spell/ExplodingFireball';
+import Fireball from '../Config/Fireball';
+import ExplodingFireball from '../Config/ExplodingFireball';
 
 class BaseScene extends Phaser.Scene  {
 

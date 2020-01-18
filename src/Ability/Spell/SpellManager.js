@@ -1,5 +1,5 @@
 import Projectile from '../../Physics/Projectile';
-import Effect from "../../Effect/Effect";
+import SpellEffect from "../../Effect/SpellEffect";
 
 class SpellManager {
 
@@ -11,7 +11,7 @@ class SpellManager {
     }
 
     _throw(abilityConfig) {
-        const effect = new Effect(abilityConfig),
+        const effect = new SpellEffect(abilityConfig),
             projectile = new Projectile(abilityConfig.user, abilityConfig.target, effect),
             animationDuration = this._getAnimationDuration(abilityConfig);
 
