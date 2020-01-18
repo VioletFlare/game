@@ -21,12 +21,18 @@ class Explosion {
         this.effect.scene.physics.world.enable(this.explosionZone, 0);
         this.explosionZone.body.setAllowGravity(false);
         this.explosionZone.bodymoves = false;
+        this.explosionOverlap = this.effect.scene.physics.add.overlap(
+            this.effect.scene.charactersOverlapArr, 
+            this.explosionZone,
+            () => this._onExplosionHit()
+        );
     }
 
-    _setEvents() {
-        this.explosionZone.on('enterzone', () => {
-            console.log("test");
-        })
+    _onExplosionHit() {
+        console.log("test");
+
+        this.explosionZone.destroy();
+        this.explosionOverlap.destroy();
     }
 
 }

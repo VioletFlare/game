@@ -75,6 +75,13 @@ class Temple0 extends BaseScene {
         this.characters.ghost2.create(ghostSpawn1);
         this.characters.ghost3.create(ghostSpawn2);
 
+        this.charactersOverlapArr = [
+            this.characters.player.armatureDisplay,
+            this.characters.ghost.armatureDisplay,
+            this.characters.ghost2.armatureDisplay,
+            this.characters.ghost3.armatureDisplay
+        ];
+
         this._setAbilities();
     }
 
