@@ -1,6 +1,7 @@
 import texPng from '../../assets/particles/flares_tex.png';
 import texJson from '../../assets/particles/flares_tex.json';
 import icon from '../../assets/icon/fireball_icon.png';
+import FireExplosion from './FireExplosion';
 
 class ExplodingFireball {
 
@@ -15,9 +16,6 @@ class ExplodingFireball {
             scale: { start: 0.4, end: 0.2, ease: 'Power3' },
             blendMode: 'ADD',
             on: false,
-            explosion: {
-
-            }
         };
         this.physicConfiguration = {
             width: 25,
@@ -27,10 +25,6 @@ class ExplodingFireball {
             rotationOffset: 2.9,
             speed: 150,
             launchTimeOffset: 50,
-            explosion: {
-                width: 100,
-                height: 100
-            }
         };
         this.animationName = 'cast_0';
         this.atlasName = 'flares';
@@ -43,11 +37,13 @@ class ExplodingFireball {
         this.isSpell = true;
         this.isRanged = true;
         this.isAoE = true;
+        this.AoEEffect = new FireExplosion();
         this.scene = scene;
     }
 
     preload() {
         this.scene.load.atlas(this.atlasName, texPng, texJson);
+        this.AoEEffect.preload();
     }
 
 }

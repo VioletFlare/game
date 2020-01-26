@@ -1,9 +1,10 @@
-import Explosion from '../Physics/Explosion';
+import AfterEffectManager from './AfterEffectManager';
 
 class EffectManager {
 
     constructor(target) {
         this.target = target;
+        this.afterEffectManager = new AfterEffectManager(this.target);
     }
 
     applyEffect(user, effect) {
@@ -13,19 +14,7 @@ class EffectManager {
             target: this.target
         })
 
-        this._handleAfterEffect(effect);
-    }
-
-    _createExplosion(effect) {
-        const currentTargetPosition = this.target.armatureDisplay.body.center;
-        
-        new Explosion(currentTargetPosition, effect);
-    }
-
-    _handleAfterEffect(effect) {
-        if (effect.config.isAoE) {
-            this._createExplosion(effect);
-        }
+        this.afterEffectManager.handleAfterEffect(effect);
     }
 
 }

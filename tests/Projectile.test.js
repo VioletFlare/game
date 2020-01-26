@@ -9,7 +9,7 @@ The lifecycle of a projectile:
 * Reaches or does not reach it's target
 * Gets destroyed
 
-The appearance of a projectile is handled by the Effect object which resides inside the projectile object.
+The appearance of a projectile in case of a spell is handled by the SpellEffect object which resides inside the projectile object.
 
 Example of a regular projectile: 
     A spell or an arrow shoot by the player or by a game object towards an object, npc or area.
@@ -19,8 +19,8 @@ The appearance, physical properties, description is described by a special class
 Example:
     The Fireball object describes the Fireball spell with all it's properties regarding description, damage, appearance etc.
 
-* Note as mentioning above Effect handles the appearance but it doesn't describe it. 
-  Effect's only responsibility is to render the appearance not to describe it.
+* Note as mentioning above SpellEffect handles the appearance but it doesn't describe it. 
+  SpellEffect's only responsibility is to render the appearance not to describe it.
 */
 
 import Projectile from '../src/Physics/Projectile';
