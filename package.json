@@ -13,7 +13,6 @@
   "devDependencies": {
     "@babel/preset-env": "^7.9.6",
     "babel-jest": "^25.5.1",
-    "babel-minify-webpack-plugin": "^0.3.1",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^3.5.3",
     "file-loader": "^2.0.0",

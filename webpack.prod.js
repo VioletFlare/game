@@ -1,13 +1,10 @@
 const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
-const MinifyPlugin = require("babel-minify-webpack-plugin");
 const path = require('path');
+const common = require('./webpack.common.js');
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = merge(common, {
     mode: 'production',
-    plugins: [
-        new MinifyPlugin()
-    ],
     output: {
         filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist')
@@ -20,16 +17,19 @@ module.exports = merge(common, {
             }
         ],
     },
+    performance: {
+        maxEntrypointSize: 900000,
+        maxAssetSize: 900000
+    },
     optimization: {
-        runtimeChunk: 'single',
-        splitChunks: {
-            cacheGroups: {
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'vendors',
-                    chunks: 'all'
+        minimizer: [
+            new TerserPlugin({
+                terserOptions: {
+                    output: {
+                        comments: false
+                    }
                 }
-            }
-        }
+            })
+        ]
     }
 });
