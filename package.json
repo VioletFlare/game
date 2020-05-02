@@ -29,7 +29,6 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
-    "delegate": "^3.2.0",
-    "phaser": "^3.23.0"
+    "delegate": "^3.2.0"
   }
 }
