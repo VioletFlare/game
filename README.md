@@ -3,6 +3,10 @@ Game
 
 A work in progress platform RPG.
 
+No install:
+---
+https://violetflare.github.io/
+
 Installation & Running
 ---
 
@@ -55,6 +59,20 @@ http://localhost:8080/index.html
 ~~~~
 
 Note: Ad blocking software might prevent the page from loading. (ie. brave shields on brave browser)
+
+#### Publishing:
+
+Update the dist folder with the build command:
+
+~~~~
+$ npm run build
+~~~~
+
+Publish the dist folder to violetflare.github.io:
+
+~~~~
+$ npm run publish
+~~~~
 
 Tests
 ---
