@@ -9,10 +9,9 @@ class AfterEffectManager {
 
     _createExplosion(effect) {
         const currentTargetPosition = this.target.armatureDisplay.body.center,
-            explosionEffect = new ExplosionEffect();
+            explosionEffect = new ExplosionEffect(effect.config);
         
-    
-        new Explosion(currentTargetPosition, effect);
+        new Explosion(currentTargetPosition, explosionEffect);
     }
 
     handleAfterEffect(effect) {

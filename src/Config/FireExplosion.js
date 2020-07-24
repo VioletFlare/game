@@ -96,6 +96,10 @@ class FireExplosion {
                 seamless: false 
             }
         }
+        this.physicConfiguration = {
+            width: 100,
+            height: 100
+        };
         this.atlasName = "particles";
     }
 
