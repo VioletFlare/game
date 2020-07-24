@@ -9,12 +9,12 @@ class Explosion {
     }
 
     _createZone() {
-        this.explosionZone = this.effect.scene.add.zone(
-            this.position.x, 
-            this.position.y,
-            this.effect.config.AoEEffect.physicConfiguration.width,
-            this.effect.config.AoEEffect.physicConfiguration.height
-        );
+        this.explosionZone = this.effect.scene.make.zone({
+            x: this.position.x, 
+            y: this.position.y,
+            width: this.effect.config.AoEEffect.physicConfiguration.width,
+            height: this.effect.config.AoEEffect.physicConfiguration.height
+        });
     }
 
     _addExplosionCollisionOverlap() {
@@ -26,19 +26,24 @@ class Explosion {
     }
 
     _createPhysics() {
-        this.effect.scene.physics.world.enable(this.explosionZone, 0);
-        this.explosionZone.body.setAllowGravity(false);
         this.explosionZone.bodymoves = false;
+        this.effect.scene.physics.world.enable(this.explosionZone, 1);
+        
         this._addExplosionCollisionOverlap();
     }
 
-    _onExplosionHit() {
-        console.log("test");
+    _stopExplosion() {
         this.explosionOverlap.destroy();
 
         setTimeout(
-            () => this.explosionZone.destroy(), 
-        400);
+            () => this.explosionZone.destroy(), 400
+        );
+    }
+
+    _onExplosionHit() {
+        if (this.explosionOverlap.active) {
+            this._stopExplosion();
+        }
     }
 
 }
