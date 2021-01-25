@@ -1,18 +1,21 @@
+import $ from "cash-dom";
 import DraggableManager from './DraggableManager';
 import HotkeyBar from './HotkeyBar';
 import AbilityBook from './AbilityBook';
 import Log from './Log';
+import DialogueBox from './DialogueBox';
 
 class UI {
 
     constructor() {
-        this.body = document.body;
+        this.$body = $(document.body);
+        window.$ = $;
     }
 
     _createUILayer() {
-        this.uiLayer = document.createElement('div');
-        this.uiLayer.classList.add('uiLayer');
-        this.body.append(this.uiLayer);
+        this.$uiLayer = $('<div></div>');
+        this.$uiLayer.addClass('uiLayer');
+        this.$body.append(this.$uiLayer);
     }
 
     create() {
@@ -24,6 +27,7 @@ class UI {
         AbilityBook.create();
         draggableManager.create();
         Log.create();
+        DialogueBox.create();
     }
 }
 
