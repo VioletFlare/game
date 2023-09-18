@@ -1,3 +1,5 @@
+![node-shield-image]
+
 Game
 ===
 
@@ -82,3 +84,5 @@ Running tests:
 ```
 $ npm run test
 ```
+
+[node-shield-image]: https://img.shields.io/static/v1?label=node&message=16.20.1&color=green
